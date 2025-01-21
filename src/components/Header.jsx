@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import logoMainifa from '../assets/logomainfia.webp';  // Make sure the logo is in this path
 
 function Header() {
+  const navigate = useNavigate();
 
   const getCurrentShift = () => {
     const currentHour = new Date().getHours();
@@ -27,8 +29,12 @@ function Header() {
     <div className="bg-white px-4 py-2 flex justify-between items-center shadow-md border-b border-gray-200">
       {/* Left Section */}
       <div className="flex items-center gap-4">
+
         {/* Logo Section - replaced upload with actual logo */}
-        <div className="flex items-center">
+        <div 
+          className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={() => navigate('/')}
+        >
           <img 
             src={logoMainifa} 
             alt="Mainifa Logo" 
@@ -48,6 +54,14 @@ function Header() {
 
       {/* Right Section */}
       <div className="flex items-center gap-4">
+        {/* Form Button */}
+        <button
+          onClick={() => navigate('/form')}
+          className="bg-[#b86327] hover:bg-[#E97451] text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
+        >
+          Form
+        </button>
+
         {/* Current Date and Shift */}
         <div className="bg-[#b86327] text-white text-sm px-4 py-2 rounded-lg shadow-lg">
           {`Date: ${currentDate} | ${getCurrentShift()}`}
