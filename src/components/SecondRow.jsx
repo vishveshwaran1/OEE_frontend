@@ -13,6 +13,11 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
     return partNumber === '9253020232' ? '#8d2fd0' : '#466d1d';
   };
 
+  const partColors = {
+    'SMALL CYLINDER': '#466d1d',
+    'BIG CYLINDER': '#8d2fd0'
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (!selectedPart?.number) return;
@@ -21,10 +26,10 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
         const response = await fetch('https://oee.onrender.com/api/pie');
         const data = await response.json();
         
-        const transformedData = Object.entries(data).map(([name, value], index) => ({
+        const transformedData = Object.entries(data).map(([name, value]) => ({
           name: name,
           value: value,
-          color: index === 0 ? '#8d2fd0' : '#466d1d'
+          color: partColors[name] 
         }));
         
         setPieData(transformedData);
@@ -84,7 +89,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
   const fetchProductionData = async (partNumber) => {
     try {
-      const response = await fetch('http://localhost:3000/api/production', {
+      const response = await fetch('https://oee.onrender.com/api/production', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -174,17 +179,6 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
       </PieChart>
     );
   };
-
-
-  const lineData = [
-    { name: '', value1: null },
-    { name: 'Jan 22', value1: 38 },
-    { name: 'Feb 22', value1: 40 },
-    { name: 'Mar 22', value1: 15 },
-    { name: 'Apr 22', value1: 40 },
-    { name: 'May 22', value1: 55 },
-    { name: 'Jun 22', value1: 20 }
-  ];
 
   const ValueBox = ({ title, value, isLoading, color }) => (
     <div className="bg-white h-full border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
