@@ -203,7 +203,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
                 {title === 'PLAN' ? productionData.plan : productionData.actual}
               </span>
             </div>
-            <div className="text-xs text-gray-500">Units per hour</div>
+            <div className="text-xs text-gray-500">Units per shift</div>
             <div className="mt-4 w-full bg-gray-100 rounded-full h-1.5">
               <div 
                 className="h-1.5 rounded-full transition-all duration-500"
