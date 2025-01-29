@@ -255,10 +255,10 @@ const FirstRow = () => {
               <div className="flex items-baseline gap-1.5">
                 <span className="text-2xl font-bold" style={{ color }}>{value}%</span>
                 <span className={`text-xs ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                  ({Math.abs(parseFloat(trend))}% {isPositive ? '▲' : '▼'})
+{/*                   ({Math.abs(parseFloat(trend))}% {isPositive ? '▲' : '▼'}) */}
                 </span>
               </div>
-              <span className="text-[10px] text-gray-500">{prevValue}</span>
+{/*               <span className="text-[10px] text-gray-500">{prevValue}</span> */}
             </div>
   
             <div className="mt-2">
