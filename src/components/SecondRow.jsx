@@ -84,7 +84,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
   const fetchProductionData = async (partNumber) => {
     try {
-      const response = await fetch('https://oee.onrender.com/api/production', {
+      const response = await fetch('http://localhost:3000/api/production', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,18 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
         body: JSON.stringify({ partNumber })
       });
       const data = await response.json();
-      setProductionData(data);
+      console.log(data);
+
+      if (!response.ok || !data.success) {
+        setProductionData({ plan: 'NIL', actual: 'NIL' });
+        return;
+      }
+  
+      setProductionData({
+        plan: data.plan || 'NIL',
+        actual: data.actual || 'NIL',
+        success: true
+      });
     } catch (err) {
       console.error('Error fetching production data:', err);
     }
