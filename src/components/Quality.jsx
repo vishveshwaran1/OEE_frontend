@@ -7,7 +7,7 @@ const Quality = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [selectedPart, setSelectedPart] = useState({
-    number: '9253020232',
+    number: '9253010242',
     name: 'BIG CYLINDER'
   });
 
