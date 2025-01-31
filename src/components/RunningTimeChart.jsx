@@ -7,20 +7,33 @@ function RunningTimeChart() {
   const threshold = 106;
 
   // Function to process hourly data
-  const processHourlyData = (hourlyProduction) => {
+   const processHourlyData = (hourlyProduction) => {
     // Create a map to store hourly totals
     const hourlyTotals = new Map();
-
+  
     // Process data for each part type
     Object.values(hourlyProduction).forEach(timeEntries => {
+      // Group entries by hour
+      const hourlyGroups = {};
+      
       Object.entries(timeEntries).forEach(([timeStr, value]) => {
-        // Extract hour from timestamp
         const hour = timeStr.split(':')[0];
-        // Add value to hourly total
-        hourlyTotals.set(hour, (hourlyTotals.get(hour) || 0) + value);
+        if (!hourlyGroups[hour]) {
+          hourlyGroups[hour] = [];
+        }
+        hourlyGroups[hour].push(value);
+      });
+  
+      // Calculate production for each hour (delta between max and min)
+      Object.entries(hourlyGroups).forEach(([hour, values]) => {
+        const hourlyProduction = values.length > 0 
+          ? Math.max(...values) - Math.min(...values)
+          : 0;
+        
+        hourlyTotals.set(hour, (hourlyTotals.get(hour) || 0) + hourlyProduction);
       });
     });
-
+  
     // Convert to array format for chart
     return Array.from(hourlyTotals.entries())
       .map(([hour, value]) => ({
