@@ -15,10 +15,26 @@ const Quality = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('https://oee.onrender.com/api/monthly-stats');
+        const response = await fetch('http://localhost:3000/api/monthly-stats');
         const data = await response.json();
+        
         if (data.success) {
-          setStatsData(data.data);
+          // Process stats to remove zero counts
+          const processedData = {
+            ...data.data,
+            stats: Object.fromEntries(
+              Object.entries(data.data.stats).map(([part, partData]) => [
+                part,
+                {
+                  ...partData,
+                  rejectionsByReason: partData.rejectionsByReason.filter(
+                    rejection => rejection.count > 0
+                  )
+                }
+              ])
+            )
+          };
+          setStatsData(processedData);
         }
         setIsLoading(false);
       } catch (error) {
