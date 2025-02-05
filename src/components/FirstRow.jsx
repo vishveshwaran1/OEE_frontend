@@ -95,7 +95,7 @@ const FirstRow = () => {
   // Add fetch function
   const fetchOEEData = async () => {
     try {
-      const response = await fetch('https://oee.onrender.com/api/oee');
+      const response = await fetch('http://localhost:3000/api/oee');
       const result = await response.json();
       if (result.success) {
         setOeeData({
