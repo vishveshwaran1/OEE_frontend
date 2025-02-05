@@ -23,7 +23,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
       if (!selectedPart?.number) return;
 
       try {
-        const response = await fetch('http://localhost:3000/api/pie');
+        const response = await fetch('https://oee.onrender.com/api/pie');
         const data = await response.json();
         
         const transformedData = Object.entries(data).map(([name, value]) => ({
@@ -59,7 +59,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
   // Add new fetch function for OEE metrics
   const fetchOEEMetrics = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/oee-history');
+      const response = await fetch('https://oee.onrender.com/api/oee-history');
       const data = await response.json();
       
       // Sort data by date and shift
@@ -89,7 +89,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
   const fetchProductionData = async (partNumber) => {
     try {
-      const response = await fetch('http://localhost:3000/api/production', {
+      const response = await fetch('https://oee.onrender.com/api/production', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
