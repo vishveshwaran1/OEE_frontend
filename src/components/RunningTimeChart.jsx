@@ -38,7 +38,7 @@ function RunningTimeChart() {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/hourly-production-data');
+      const response = await fetch('https://oee.onrender.com/api/hourly-production-data');
       const data = await response.json();
       
       if (data.success) {
