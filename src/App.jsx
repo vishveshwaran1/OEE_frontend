@@ -1,43 +1,74 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import FirstRow from './components/FirstRow'
-import RunningTimeChart from './components/RunningTimeChart'
-import Availability from './components/Availability'
-import Quality from './components/Quality'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import LoginPage from './components/LoginPage';
+import Header from './components/Header';
+import FirstRow from './components/FirstRow';
+import RunningTimeChart from './components/RunningTimeChart';
+import Availability from './components/Availability';
+import Quality from './components/Quality';
 import QualityForm from './components/QualityForm';
-
-
-
-// const Quality = () => (
-//   <div className="p-4">
-//     <h1 className="text-2xl font-bold text-[#8B4513]">Quality Details</h1>
-//     {/* Add your quality page content here */}
-//   </div>
-// )
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="h-screen bg-white ">
-        <Header />
-        <div className="min-h-[calc(100vh-64px)] p-2">
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="h-screen bg-white">
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            
+            {/* Protected Routes */}
             <Route path="/" element={
-              <>
-                <FirstRow />
-                <div className="mt-2">
-                  <RunningTimeChart />
+              
+                <div>
+                  <Header />
+                  <div className="min-h-[calc(100vh-64px)] p-2">
+                    <FirstRow />
+                    <div className="mt-2">
+                      <RunningTimeChart />
+                    </div>
+                  </div>
                 </div>
-              </>
+              
             } />
-            <Route path="/availability" element={<Availability />} />
-            <Route path="/quality" element={<Quality />} />
-            <Route path="/form" element={<QualityForm />} />
+            
+            <Route path="/availability" element={
+              <ProtectedRoute>
+                <div>
+                  <Header />
+                  <div className="min-h-[calc(100vh-64px)] p-2">
+                    <Availability />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/quality" element={
+              <ProtectedRoute>
+                <div>
+                  <Header />
+                  <div className="min-h-[calc(100vh-64px)] p-2">
+                    <Quality />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/form" element={
+              <ProtectedRoute>
+                <div>
+                  <Header />
+                  <div className="min-h-[calc(100vh-64px)] p-2">
+                    <QualityForm />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            } />
           </Routes>
         </div>
-      </div>
-    </BrowserRouter>
-  )
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
