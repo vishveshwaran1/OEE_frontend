@@ -8,12 +8,23 @@ import RunningTimeChart from './components/RunningTimeChart';
 import Availability from './components/Availability';
 import Quality from './components/Quality';
 import QualityForm from './components/QualityForm';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <div className="h-screen bg-white">
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#333',
+                color: '#fff',
+              },
+            }}
+          />
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             

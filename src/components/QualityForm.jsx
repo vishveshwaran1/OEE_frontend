@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const QualityForm = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +7,12 @@ const QualityForm = () => {
     shift: '',
     rejections: [{ partNumber: '', count: '', reason: '' }],
     stopTimes: [{ duration: '', reason: '' }]
+  });
+  
+  const [correctionForm, setCorrectionForm] = useState({
+    problem: '',
+    date: '',
+    correctiveAction: ''
   });
 
   // Existing data arrays
@@ -60,6 +67,40 @@ const QualityForm = () => {
     }
   };
 
+  // Handler for correction form submission
+  const handleCorrectionSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://oee.onrender.com/api/correction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...correctionForm,
+          date: correctionForm.date // Already in yyyy-mm-dd format from input
+        }),
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success('Correction data saved successfully');
+        // Reset form
+        setCorrectionForm({
+          problem: '',
+          date: '',
+          correctiveAction: ''
+        });
+      } else {
+        toast.error(data.message || 'Error saving correction data');
+      }
+    } catch (error) {
+      toast.error('Error submitting correction data');
+      console.error('Error:', error);
+    }
+  };
+
+
   const addRejection = () => {
     setFormData({
       ...formData,
@@ -87,6 +128,8 @@ const QualityForm = () => {
   return (
     <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-6">
+        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="lg:w-2/3">
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
           <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-bold text-[#8B4513] mb-4">Quality Data Entry Form</h2>
@@ -273,6 +316,55 @@ const QualityForm = () => {
             </div>
           </div>
         </form>
+        </div>
+        <div className="lg:w-1/3">
+            <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+              <h2 className="text-lg font-bold text-[#8B4513] mb-4">Corrective Action Form</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                  <input
+                    type="date"
+                    value={correctionForm.date}
+                    onChange={(e) => setCorrectionForm({ ...correctionForm, date: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Problem</label>
+                  <textarea
+                    value={correctionForm.problem}
+                    onChange={(e) => setCorrectionForm({ ...correctionForm, problem: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+                    placeholder="Describe the problem..."
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Corrective Action</label>
+                  <textarea
+                    value={correctionForm.correctiveAction}
+                    onChange={(e) => setCorrectionForm({ ...correctionForm, correctiveAction: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+                    placeholder="Describe the solution..."
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                >
+                  Submit Correction
+                </button>
+              </div>
+            </form>
+          </div>  
+        </div>
       </div>
     </div>
   );
