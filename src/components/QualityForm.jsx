@@ -178,7 +178,7 @@ const QualityForm = () => {
                             setFormData({ ...formData, rejections: newRejections });
                           }}
                           className="w-full p-2 border border-gray-300 rounded-md"
-                          required
+                         
                         >
                           <option value="">Select Part</option>
                           {parts.map(part => (
@@ -200,7 +200,7 @@ const QualityForm = () => {
                             setFormData({ ...formData, rejections: newRejections });
                           }}
                           className="w-full p-2 border border-gray-300 rounded-md"
-                          required
+                          
                         />
                       </div>
                       <div>
@@ -213,7 +213,7 @@ const QualityForm = () => {
                             setFormData({ ...formData, rejections: newRejections });
                           }}
                           className="w-full p-2 border border-gray-300 rounded-md"
-                          required
+                         
                         >
                           <option value="">Select Reason</option>
                           {rejectionReasons.map(reason => (
