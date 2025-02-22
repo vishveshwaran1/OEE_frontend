@@ -10,24 +10,29 @@ function RunningTimeChart() {
   const processHourlyData = (hourlyProduction) => {
     // Create a map to store hourly totals
     const hourlyTotals = new Map();
-
-    // Process data for each part type
-    Object.values(hourlyProduction).forEach(timeEntries => {
-      Object.entries(timeEntries).forEach(([timeStr, value]) => {
-        // Extract hour from timestamp
+  
+    // Process data for each part type (BIG CYLINDER and SMALL CYLINDER)
+    Object.entries(hourlyProduction).forEach(([partType, timeEntries]) => {
+      // Group and sum entries by hour
+      Object.entries(timeEntries).forEach(([timeStr, count]) => {
         const hour = timeStr.split(':')[0];
-        // Add value to hourly total
-        hourlyTotals.set(hour, (hourlyTotals.get(hour) || 0) + value);
+        hourlyTotals.set(hour, (hourlyTotals.get(hour) || 0) + count);
       });
     });
-
-    // Convert to array format for chart
-    return Array.from(hourlyTotals.entries())
-      .map(([hour, value]) => ({
+  
+    // Convert to array format for chart and pad with missing hours
+    const data = [];
+    
+    // Add entries for all hours from 0 to 23
+    for (let i = 0; i <= 23; i++) {
+      const hour = i.toString().padStart(2, '0');
+      data.push({
         hour,
-        value
-      }))
-      .sort((a, b) => a.hour - b.hour);
+        value: hourlyTotals.get(hour) || 0
+      });
+    }
+  
+    return data.sort((a, b) => a.hour - b.hour);
   };
 
   // Fetch data function

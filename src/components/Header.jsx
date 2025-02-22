@@ -1,8 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import logoMainifa from '../assets/logomainfia.webp';  // Make sure the logo is in this path
 
+import { useAuth } from '../contexts/AuthContext';
+
 function Header() {
+  const { logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   const getCurrentShift = () => {
     const currentHour = new Date().getHours();
@@ -66,7 +74,16 @@ function Header() {
         <div className="bg-[#b86327] text-white text-sm px-4 py-2 rounded-lg shadow-lg">
           {`Date: ${currentDate} | ${getCurrentShift()}`}
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
+        >
+          Logout
+        </button>
+
       </div>
+      
     </div>
   )
 }

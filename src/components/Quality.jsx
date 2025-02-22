@@ -17,8 +17,24 @@ const Quality = () => {
       try {
         const response = await fetch('https://oee.onrender.com/api/monthly-stats');
         const data = await response.json();
+        
         if (data.success) {
-          setStatsData(data.data);
+          // Process stats to remove zero counts
+          const processedData = {
+            ...data.data,
+            stats: Object.fromEntries(
+              Object.entries(data.data.stats).map(([part, partData]) => [
+                part,
+                {
+                  ...partData,
+                  rejectionsByReason: partData.rejectionsByReason.filter(
+                    rejection => rejection.count > 0
+                  )
+                }
+              ])
+            )
+          };
+          setStatsData(processedData);
         }
         setIsLoading(false);
       } catch (error) {

@@ -13,6 +13,11 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
     return partNumber === '9253020232' ? '#8d2fd0' : '#466d1d';
   };
 
+  const partColors = {
+    'SMALL CYLINDER': '#466d1d',
+    'BIG CYLINDER': '#8d2fd0'
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (!selectedPart?.number) return;
@@ -21,10 +26,10 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
         const response = await fetch('https://oee.onrender.com/api/pie');
         const data = await response.json();
         
-        const transformedData = Object.entries(data).map(([name, value], index) => ({
+        const transformedData = Object.entries(data).map(([name, value]) => ({
           name: name,
           value: value,
-          color: index === 0 ? '#8d2fd0' : '#466d1d'
+          color: partColors[name] 
         }));
         
         setPieData(transformedData);
@@ -92,7 +97,18 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
         body: JSON.stringify({ partNumber })
       });
       const data = await response.json();
-      setProductionData(data);
+      console.log(data);
+
+      if (!response.ok || !data.success) {
+        setProductionData({ plan: 'NIL', actual: 'NIL' });
+        return;
+      }
+  
+      setProductionData({
+        plan: data.plan || 'NIL',
+        actual: data.actual || 'NIL',
+        success: true
+      });
     } catch (err) {
       console.error('Error fetching production data:', err);
     }
@@ -110,7 +126,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
     }
 
     return (
-      <PieChart width={160} height={120}>
+      <PieChart width={140} height={100}>
         <Pie
           data={pieData}
           cx="50%"
@@ -164,17 +180,6 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
     );
   };
 
-
-  const lineData = [
-    { name: '', value1: null },
-    { name: 'Jan 22', value1: 38 },
-    { name: 'Feb 22', value1: 40 },
-    { name: 'Mar 22', value1: 15 },
-    { name: 'Apr 22', value1: 40 },
-    { name: 'May 22', value1: 55 },
-    { name: 'Jun 22', value1: 20 }
-  ];
-
   const ValueBox = ({ title, value, isLoading, color }) => (
     <div className="bg-white h-full border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
       <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-orange-50"
@@ -199,11 +204,11 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               )}
-              <span className="text-3xl text-gray-800 font-bold">
+              <span className="text-4xl text-gray-800 font-bold">
                 {title === 'PLAN' ? productionData.plan : productionData.actual}
               </span>
             </div>
-            <div className="text-xs text-gray-500">Units per hour</div>
+            <div className="text-xs text-gray-500">Units per shift</div>
             <div className="mt-4 w-full bg-gray-100 rounded-full h-1.5">
               <div 
                 className="h-1.5 rounded-full transition-all duration-500"
@@ -223,7 +228,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
     <div className="px-4 py-2">
       <div className="grid grid-cols-12 gap-3">
         {/* Pie Chart */}
-        <div className="col-span-3">
+        <div className="col-span-2">
           <div className="bg-white p-2 h-[210px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#8B4513]">
             <div className="flex items-center justify-between border-b border-orange-100 pb-2 mb-2">
               <div className="flex items-center gap-2">
@@ -261,7 +266,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
         </div>
 
         {/* Plan/Actual */}
-        <div className="col-span-3 grid grid-cols-2 gap-2">
+        <div className="col-span-4 grid grid-cols-2 gap-2">
         <div className="bg-white h-[210px] border border-gray-200 rounded-lg shadow-sm">
            <ValueBox 
             title="PLAN" 
