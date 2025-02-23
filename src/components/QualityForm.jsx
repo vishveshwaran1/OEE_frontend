@@ -15,6 +15,13 @@ const QualityForm = () => {
     correctiveAction: ''
   });
 
+  const [planForm, setPlanForm] = useState({
+    partNumber: '',
+    plan: '',
+    date: '',
+    shift: ''
+  });
+
   // Existing data arrays
   const rejectionReasons = [
     'Forming crack', 'Forming offset', 'Deep Monogram', 'Dent',
@@ -100,6 +107,35 @@ const QualityForm = () => {
     }
   };
 
+  const handlePlanSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/set-plan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(planForm),
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success('Plan data saved successfully');
+        setPlanForm({
+          partNumber: '',
+          plan: '',
+          date: '',
+          shift: ''
+        });
+      } else {
+        toast.error(data.message || 'Error saving plan data');
+      }
+    } catch (error) {
+      toast.error('Error submitting plan data');
+      console.error('Error:', error);
+    }
+  };
+
 
   const addRejection = () => {
     setFormData({
@@ -129,10 +165,10 @@ const QualityForm = () => {
     <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
-        <div className="lg:w-2/3">
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-            <h2 className="text-lg font-bold text-[#8B4513] mb-4">Quality Data Entry Form</h2>
+          <div className="lg:w-2/4">
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+            <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+            <h2 className="text-lg font-bold text-[#8B4513] mb-4">Data Entry Form</h2>
             
             {/* Date and Shift Selection */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -315,54 +351,130 @@ const QualityForm = () => {
               </button>
             </div>
           </div>
-        </form>
-        </div>
-        <div className="lg:w-1/3">
-            <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-              <h2 className="text-lg font-bold text-[#8B4513] mb-4">Corrective Action Form</h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                  <input
-                    type="date"
-                    value={correctionForm.date}
-                    onChange={(e) => setCorrectionForm({ ...correctionForm, date: e.target.value })}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
+          </form>
+          </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Problem</label>
-                  <textarea
-                    value={correctionForm.problem}
-                    onChange={(e) => setCorrectionForm({ ...correctionForm, problem: e.target.value })}
-                    className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
-                    placeholder="Describe the problem..."
-                    required
-                  />
-                </div>
+          {/* Right Column - Plan Form and Corrective Action Form */}
+          <div className="lg:w-2/4 flex lg:flex-row gap-4">
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Corrective Action</label>
-                  <textarea
-                    value={correctionForm.correctiveAction}
-                    onChange={(e) => setCorrectionForm({ ...correctionForm, correctiveAction: e.target.value })}
-                    className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
-                    placeholder="Describe the solution..."
-                    required
-                  />
-                </div>
+            {/*  Corrective Action Form */}
+            <div className="lg:w-2/4">
+              <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+                <h2 className="text-lg font-bold text-[#8B4513] mb-4">Corrective Action Form</h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input
+                      type="date"
+                      value={correctionForm.date}
+                      onChange={(e) => setCorrectionForm({ ...correctionForm, date: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
-                >
-                  Submit Correction
-                </button>
-              </div>
-            </form>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Problem</label>
+                    <textarea
+                      value={correctionForm.problem}
+                      onChange={(e) => setCorrectionForm({ ...correctionForm, problem: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+                      placeholder="Describe the problem..."
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Corrective Action</label>
+                    <textarea
+                      value={correctionForm.correctiveAction}
+                      onChange={(e) => setCorrectionForm({ ...correctionForm, correctiveAction: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md h-24 resize-none"
+                      placeholder="Describe the solution..."
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                  >
+                    Submit Correction
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Plan Form */}
+            <div className="lg:w-2/4">
+              <form onSubmit={handlePlanSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4">
+                <h2 className="text-lg font-bold text-[#8B4513] mb-4">Set Production Plan</h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Part Number</label>
+                    <select
+                      value={planForm.partNumber}
+                      onChange={(e) => setPlanForm({ ...planForm, partNumber: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    >
+                      <option value="">Select Part</option>
+                      {parts.map(part => (
+                        <option key={part.number} value={part.number}>
+                          {part.name} ({part.number})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Plan Count</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={planForm.plan}
+                      onChange={(e) => setPlanForm({ ...planForm, plan: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input
+                      type="date"
+                      value={planForm.date}
+                      onChange={(e) => setPlanForm({ ...planForm, date: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Shift</label>
+                    <select
+                      value={planForm.shift}
+                      onChange={(e) => setPlanForm({ ...planForm, shift: e.target.value })}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    >
+                      <option value="">Select Shift</option>
+                      <option value="shift-1">Shift 1</option>
+                      <option value="shift-2">Shift 2</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                  >
+                    Set Plan
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>  
         </div>
       </div>
