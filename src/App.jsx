@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router,  Routes, Route } from 'react-router-dom'; 
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './components/LoginPage';
@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <Router>
         <div className="h-screen bg-white">
           <Toaster 
             position="top-right"
@@ -28,7 +28,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             
-            {/* Protected Routes */}
             <Route path="/" element={
               
                 <div>
@@ -43,6 +42,7 @@ function App() {
               
             } />
             
+            {/* Protected Routes */}
             <Route path="/availability" element={
               <ProtectedRoute>
                 <div>
@@ -77,7 +77,7 @@ function App() {
             } />
           </Routes>
         </div>
-      </BrowserRouter>
+      </Router>
     </AuthProvider>
   );
 }

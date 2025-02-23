@@ -62,23 +62,29 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
       const response = await fetch('https://oee.onrender.com/api/oee-history');
       const data = await response.json();
       
-      // Sort data by date and shift
-      const sortedData = data.sort((a, b) => {
-        const dateCompare = new Date(a.date) - new Date(b.date);
-        if (dateCompare === 0) {
-          return a.shift.localeCompare(b.shift);
-        }
-        return dateCompare;
-      });
-  
-      // Transform data with date and shift combinations
-      const transformedData = sortedData.map(item => ({
-        name: `${new Date(item.date).toLocaleDateString('en-US', {
+      // Group data by date
+      const groupedData = data.reduce((acc, item) => {
+        const date = new Date(item.date).toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric'
-        })} ${item.shift}`,
-        value1: parseFloat(item.oee)
-      }));
+        });
+        
+        if (!acc[date]) {
+          acc[date] = {
+            name: date,
+            'shift-1': null,
+            'shift-2': null
+          };
+        }
+        
+        acc[date][item.shift] = parseFloat(item.oee);
+        return acc;
+      }, {});
+  
+      // Convert to array and sort by date
+      const transformedData = Object.values(groupedData).sort((a, b) => {
+        return new Date(a.name) - new Date(b.name);
+      });
   
       setLineChartData(transformedData);
     } catch (err) {
@@ -293,6 +299,16 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
                 <div className="w-1 h-4 bg-[#8B4513] rounded-full"></div>
                 <span className="text-[#8B4513] text-sm font-medium">OEE METRICS</span>
               </div>
+              <div className="flex gap-4 mb-4">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#ff7b5c]"></div>
+                  <span className="text-xs text-gray-500">Shift 1</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#2563eb]"></div>
+                  <span className="text-xs text-gray-500">Shift 2</span>
+                </div>
+              </div>
               
             </div>
 
@@ -305,72 +321,84 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
             </div>
 
             <div className="h-[200px] mt-4">
-            <LineChart
-              width={590}
-              height={180}
-              series={[
-                {
-                  data: lineChartData.map(item => item.value1),
-                  area: true,
-                  color: '#ff7b5c',
-                  showMark: true,
-                  strokeWidth: 2,
-                  valueFormatter: (value) => `${value}%`,
-                  areaStyle: {
-                    fill: '#ff7b5c',
-                    opacity: 0.3
+              <LineChart
+                width={590}
+                height={180}
+                series={[
+                  {
+                    data: lineChartData.map(item => item['shift-1'] || null),
+                    area: true,
+                    color: '#ff7b5c',
+                    showMark: true,
+                    strokeWidth: 2,
+                    valueFormatter: (value) => value ? `${value}%` : 'No data',
+                    areaStyle: {
+                      fill: '#ff7b5c',
+                      opacity: 0.2
+                    }
+                  },
+                  {
+                    data: lineChartData.map(item => item['shift-2'] || null),
+                    area: true,
+                    color: '#2563eb',
+                    showMark: true,
+                    strokeWidth: 2,
+                    valueFormatter: (value) => value ? `${value}%` : 'No data',
+                    areaStyle: {
+                      fill: '#2563eb',
+                      opacity: 0.2
+                    }
                   }
-                }
-              ]}
-              xAxis={[{
-                data: lineChartData.map(item => item.name),
-                scaleType: 'point',
-                tickLabelStyle: {
-                  fontSize: 11,
-                  fill: '#666'
-                },
-                valueFormatter: (value) => value,
-                position: 'bottom',
-                axisLine: { 
-                  strokeWidth: 1,
-                  opacity: 0.2
-                },
-                tickSize: 0,
-                padding: { left: -20, right: -20 }
-              }]}
-              yAxis={[{
-                min: 0,
-                max: 100,
-                tickValues: [0, 20, 40, 60, 80, 100],
-                tickLabelStyle: {
-                  fontSize: 11,
-                  fill: '#666'
-                },
-                position: 'left',
-                axisLine: { 
-                  strokeWidth: 1,
-                  opacity: 0.2
-                },
-                tickSize: 0,
-                valueFormatter: (value) => `${value}`
-              }]}
-              margin={{ left: 35, right: 10, top: 15, bottom: 25 }}
-              sx={{
-                '.MuiLineElement-root': {
-                  strokeWidth: 2,
-                },
-                '.MuiAreaElement-root': {
-                  fillOpacity: 0.3,
-                },
-                '.MuiMarkElement-root': {
-                  scale: '0.6',
-                },
-                '.MuiChartsAxis-line': {
-                  stroke: '#666',
-                  opacity: 0.2
-                }
-              }}
-            />
+                ]}
+                xAxis={[{
+                  data: lineChartData.map(item => item.name),
+                  scaleType: 'point',
+                  tickLabelStyle: {
+                    fontSize: 11,
+                    fill: '#666'
+                  },
+                  valueFormatter: (value) => value,
+                  position: 'bottom',
+                  axisLine: { 
+                    strokeWidth: 1,
+                    opacity: 0.2
+                  },
+                  tickSize: 0,
+                  padding: { left: -20, right: -20 }
+                }]}
+                yAxis={[{
+                  min: 0,
+                  max: 100,
+                  tickValues: [0, 20, 40, 60, 80, 100],
+                  tickLabelStyle: {
+                    fontSize: 11,
+                    fill: '#666'
+                  },
+                  position: 'left',
+                  axisLine: { 
+                    strokeWidth: 1,
+                    opacity: 0.2
+                  },
+                  tickSize: 0,
+                  valueFormatter: (value) => `${value}`
+                }]}
+                margin={{ left: 35, right: 10, top: 15, bottom: 25 }}
+                sx={{
+                  '.MuiLineElement-root': {
+                    strokeWidth: 2,
+                  },
+                  '.MuiAreaElement-root': {
+                    fillOpacity: 0.2,
+                  },
+                  '.MuiMarkElement-root': {
+                    scale: '0.6',
+                  },
+                  '.MuiChartsAxis-line': {
+                    stroke: '#666',
+                    opacity: 0.2
+                  }
+                }}
+              />
             </div>
           </div>
         </div>

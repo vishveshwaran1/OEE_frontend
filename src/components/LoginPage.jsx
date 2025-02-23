@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { HiChip, HiCube } from 'react-icons/hi';
@@ -7,17 +7,25 @@ import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === 'admin@gmail.com' && password === 'admin') {
       setError('');
       login(); // Set authentication state
-      navigate('/'); // Navigate to home page
+      navigate('/form'); // Navigate to form page
     } else {
       setError('Invalid email or password. Please try again.');
     }
