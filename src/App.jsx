@@ -28,7 +28,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             
-            {/* Protected Routes */}
             <Route path="/" element={
               
                 <div>
@@ -43,6 +42,7 @@ function App() {
               
             } />
             
+            {/* Protected Routes */}
             <Route path="/availability" element={
               <ProtectedRoute>
                 <div>
