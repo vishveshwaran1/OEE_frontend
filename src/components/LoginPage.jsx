@@ -17,7 +17,7 @@ function LoginPage() {
     if (email === 'admin@gmail.com' && password === 'admin') {
       setError('');
       login(); // Set authentication state
-      navigate('/'); // Navigate to home page
+      navigate('/form'); // Navigate to home page
     } else {
       setError('Invalid email or password. Please try again.');
     }
