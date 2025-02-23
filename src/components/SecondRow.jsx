@@ -59,7 +59,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
   // Add new fetch function for OEE metrics
   const fetchOEEMetrics = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/oee-history');
+      const response = await fetch('https://oee.onrender.com/api/oee-history');
       const data = await response.json();
       
       // Group data by date
