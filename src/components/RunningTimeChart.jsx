@@ -53,7 +53,7 @@ function RunningTimeChart() {
     try {
       const [productionResponse, planActualResponse] = await Promise.all([
         fetch('https://oee.onrender.com/api/hourly-production-data'),
-        fetch('http://localhost:3000/api/recent-plan-actual')
+        fetch('https://oee.onrender.com/api/recent-plan-actual')
       ]);
 
       const productionData = await productionResponse.json();

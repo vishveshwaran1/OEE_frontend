@@ -110,7 +110,7 @@ const QualityForm = () => {
   const handlePlanSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/set-plan', {
+      const response = await fetch('https://oee.onrender.com/api/set-plan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
