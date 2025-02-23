@@ -7,17 +7,25 @@ import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === 'admin@gmail.com' && password === 'admin') {
       setError('');
       login(); // Set authentication state
-      navigate('/form'); // Navigate to home page
+      navigate('/form'); // Navigate to form page
     } else {
       setError('Invalid email or password. Please try again.');
     }
