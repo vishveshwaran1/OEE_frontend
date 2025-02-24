@@ -110,14 +110,14 @@ function RunningTimeChart() {
       {/* Running Time Chart */}
       <div className="w-[70%] bg-white p-2 h-[180px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
         <div className="flex justify-between items-center mb-3">
-          <h3 className="text-[#8B4513] text-xs font-medium">RUNNING TIME</h3>
+          <h3 className="text-[#143D60] text-xs font-medium">RUNNING TIME</h3>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-[#E97451]"></div>
+              <div className="w-2 h-2 rounded-full bg-[#FFA318]"></div>
               <span className="text-xs text-gray-500">Above Threshold</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-[#ef4444]"></div>
+              <div className="w-2 h-2 rounded-full bg-[#FF470D]"></div>
               <span className="text-xs text-gray-500">Below Threshold</span>
             </div>
           </div>
@@ -186,7 +186,7 @@ function RunningTimeChart() {
                 chartData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`}
-                    fill={entry.value >= threshold ? '#E97451' : '#ef4444'}
+                    fill={entry.value >= threshold ? '#FFA318' : '#ef4444'}
                   />
                 ))
               }
@@ -198,7 +198,7 @@ function RunningTimeChart() {
         {/* Plan vs Actual Chart - 25% width */}
         <div className="w-[30%] bg-white p-2 h-[180px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-[#8B4513] text-xs font-medium">PLAN VS ACTUAL</h3>
+            <h3 className="text-[#143D60] text-xs font-medium">PLAN VS ACTUAL</h3>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-[#2563eb]"></div>
