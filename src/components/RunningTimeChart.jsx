@@ -36,16 +36,25 @@ function RunningTimeChart() {
     // Convert to array format for chart and pad with missing hours
     const data = [];
     
-    // Add entries for all hours from 0 to 23
-    for (let i = 0; i <= 23; i++) {
-      const hour = i.toString().padStart(2, '0');
-      data.push({
-        hour,
-        value: hourlyTotals.get(hour) || 0
-      });
-    }
+    // Add entries from 8 to 23
+  for (let i = 8; i <= 23; i++) {
+    const hour = i.toString().padStart(2, '0');
+    data.push({
+      hour,
+      value: hourlyTotals.get(hour) || 0
+    });
+  }
+
+  // Add entries from 0 to 7
+  for (let i = 0; i <= 7; i++) {
+    const hour = i.toString().padStart(2, '0');
+    data.push({
+      hour,
+      value: hourlyTotals.get(hour) || 0
+    });
+  }
   
-    return data.sort((a, b) => a.hour - b.hour);
+    return data;
   };
 
   // Fetch data function

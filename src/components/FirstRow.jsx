@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 const OEEGauge = ({ value }) => {
   const percentage = parseFloat(value) || 0;
-  const radius = 80; // Increased from 60 to 80
+  const radius = 80;
   const circumference = Math.PI * radius;
   const dashoffset = ((100 - percentage) / 100) * circumference;
-  const needleRotation = 180 * (1 - percentage / 100);
-
+  const needleRotation = percentage * 1.8 ; // Maps 0-100 to -90 to 90 degrees
   const getColor = (value) => {
     if (value >= 80) return "#48e45d";
     if (value >= 60) return "#fdeb47";
@@ -47,14 +46,57 @@ const OEEGauge = ({ value }) => {
           strokeDashoffset={dashoffset}
           className="transition-all duration-1000 ease-in-out"
         />
+
+         {/* Needle Base Circle */}
+         <circle 
+          cx="0" 
+          cy="0" 
+          r="8" 
+          fill="#374151"
+          className="transition-all duration-300"
+        />
+
+        {/* Needle */}
+        <g transform={`rotate(${needleRotation})`} className="transition-transform duration-700">
+          <path
+            d="M -60 0 L 0 -3 L 0 3 Z"
+            fill="#374151"
+          />
+        </g>
+
+         {/* Tick marks */}
+         <g>
+          {[0, 25, 50, 75, 100].map((tick) => {
+            const angle = -90 + (tick * 1.8);
+            const rad = angle * Math.PI / 180;
+            const x1 = Math.cos(rad) * 70;
+            const y1 = Math.sin(rad) * 70;
+            const x2 = Math.cos(rad) * 80;
+            const y2 = Math.sin(rad) * 80;
+            return (
+              <line
+                key={tick}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#e5e7eb"
+                strokeWidth="2"
+              />
+            );
+          })}
+        </g>
       </svg>
 
       {/* Center text - adjusted position */}
-      <div className="absolute flex flex-col items-center" style={{ transform: 'translateY(-10px)' }}>
-        <div className="text-1xl font-bold" style={{ color: gaugeColor }}> {/* Increased font size */}
+      <div 
+        className="absolute flex flex-col items-center" 
+        style={{ transform: 'translateY(21px)' }}
+      >
+        <div className="text-2xl font-bold" style={{ color: gaugeColor }}>
           {percentage}%
         </div>
-        <div className="text-[10px] text-gray-500 -mt-1">OEE</div> {/* Increased font size */}
+        <div className="text-[10px] text-gray-500">OEE</div>
       </div>
 
       {/* Bottom ticks - adjusted position */}
