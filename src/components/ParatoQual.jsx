@@ -74,8 +74,8 @@ const ParatoSection = ({ statsData, selectedPart }) => {
     <>
       {/* Chart Section */}
       <div className="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-        <div className="border-b border-[#8B4513] py-3 px-4 flex items-center justify-between bg-gradient-to-r from-white to-orange-50">
-          <span className="text-[#8B4513] text-sm font-medium">COMPLAINTS ANALYSIS</span>
+        <div className="border-b border-[#143D60] py-3 px-4 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50">
+          <span className="text-[#143D60] text-sm font-medium">COMPLAINTS ANALYSIS</span>
         </div>
         
         <div className="p-4 h-[300px]">
@@ -84,13 +84,13 @@ const ParatoSection = ({ statsData, selectedPart }) => {
               <XAxis 
                 dataKey="name" 
                 tick={{ fill: '#666', fontSize: 12 }}
-                axisLine={{ stroke: '#8B4513' }}
+                axisLine={{ stroke: '#143D60' }}
               />
               <YAxis 
                 yAxisId="left"
                 label={{ value: 'Number of Defects', angle: -90, position: 'insideLeft' }}
                 tick={{ fill: '#666', fontSize: 12 }}
-                axisLine={{ stroke: '#8B4513' }}
+                axisLine={{ stroke: '#143D60' }}
               />
               <YAxis 
                 yAxisId="right"
@@ -99,12 +99,12 @@ const ParatoSection = ({ statsData, selectedPart }) => {
                 tickFormatter={(value) => `${value}%`}
                 label={{ value: 'Cumulative %', angle: 90, position: 'insideRight' }}
                 tick={{ fill: '#666', fontSize: 12 }}
-                axisLine={{ stroke: '#8B4513' }}
+                axisLine={{ stroke: '#143D60' }}
               />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: 'white',
-                  border: '1px solid #E97451',
+                  border: '1px solid #143D60',
                   borderRadius: '4px'
                 }}
                 formatter={(value, name, props) => {
@@ -116,16 +116,16 @@ const ParatoSection = ({ statsData, selectedPart }) => {
               <Bar 
                 yAxisId="left" 
                 dataKey="complaints" 
-                fill="#E97451" 
+                fill="#143D60" 
                 radius={[4, 4, 0, 0]}
               />
               <Line 
                 yAxisId="right"
                 type="monotone" 
                 dataKey="pareto" 
-                stroke="#8B4513"
+                stroke="#143D60"
                 strokeWidth={2}
-                dot={{ fill: '#8B4513', stroke: '#8B4513' }}
+                dot={{ fill: '#143D60', stroke: '#143D60' }}
               />
             </ComposedChart>
           </ResponsiveContainer>
@@ -134,15 +134,15 @@ const ParatoSection = ({ statsData, selectedPart }) => {
 
       {/* Table Section */}
       <div className="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-        <div className="border-b border-[#8B4513] py-3 px-4 flex items-center justify-between bg-gradient-to-r from-white to-orange-50">
-            <span className="text-[#8B4513] text-sm font-medium">QUALITY ANALYSIS</span>
+        <div className="border-b border-[#143D60] py-3 px-4 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50">
+            <span className="text-[#143D60] text-sm font-medium">QUALITY ANALYSIS</span>
         </div>
         
         <div className="p-4">
             <div className="overflow-hidden rounded-lg border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead>
-                <tr className="bg-gradient-to-r from-[#8B4513] to-[#E97451] text-white">
+                <tr className="bg-gradient-to-r from-[#143D60] to-[#6C2DD2] text-white">
                     <th className="px-4 py-3 text-center text-xs font-medium">REJECTED REASONS</th>
                     <th className="px-4 py-3 text-center text-xs font-medium">COUNT</th>
                     <th className="px-4 py-3 text-center text-xs font-medium">PARETO %</th>
@@ -152,7 +152,7 @@ const ParatoSection = ({ statsData, selectedPart }) => {
                 {chartData.map((item, index) => (
                     <tr 
                     key={index}
-                    className="hover:bg-orange-50 transition-colors duration-150 border-b border-gray-200"
+                    className="hover:bg-cyan-50 transition-colors duration-150 border-b border-gray-200"
                     >
                     <td className="px-4 py-3 text-sm text-gray-900 capitalize border-r border-gray-200">
                         {item.name}
