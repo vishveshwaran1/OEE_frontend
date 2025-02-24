@@ -34,7 +34,7 @@ function Header() {
   const currentDate = new Date().toLocaleDateString('en-GB');
 
   return (
-    <div className="bg-white px-4 py-2 flex justify-between items-center shadow-md border-b border-gray-200">
+    <div className="bg-[#E5FFFC] px-4 py-2 flex justify-between items-center shadow-md border-b border-gray-200">
       {/* Left Section */}
       <div className="flex items-center gap-4">
 
@@ -65,19 +65,19 @@ function Header() {
         {/* Form Button */}
         <button
           onClick={() => navigate('/form')}
-          className="bg-[#b86327] hover:bg-[#E97451] text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
+          className="bg-[#6C2DD2] hover:bg-[#974ED1] text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
         >
           Form
         </button>
 
         {/* Current Date and Shift */}
-        <div className="bg-[#b86327] text-white text-sm px-4 py-2 rounded-lg shadow-lg">
+        <div className="bg-[#6C2DD2] text-white text-sm px-4 py-2 rounded-lg shadow-lg">
           {`Date: ${currentDate} | ${getCurrentShift()}`}
         </div>
 
         <button
           onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
+          className="bg-[#6C2DD2] hover:bg-[#974ED1] text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
         >
           Logout
         </button>
