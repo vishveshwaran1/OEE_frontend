@@ -168,7 +168,7 @@ const QualityForm = () => {
           <div className="lg:w-2/4">
           <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
             <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-            <h2 className="text-lg font-bold text-[#8B4513] mb-4">Data Entry Form</h2>
+            <h2 className="text-lg font-bold text-[#143D60] mb-4">Data Entry Form</h2>
             
             {/* Date and Shift Selection */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -199,10 +199,10 @@ const QualityForm = () => {
 
             {/* Rejections Section */}
             <div className="mb-6">
-              <h3 className="text-md font-semibold text-[#8B4513] mb-2">Rejected Parts Details</h3>
+              <h3 className="text-md font-semibold text-[#5506D6] mb-2">Rejected Parts Details</h3>
               <div className="space-y-2">
                 {formData.rejections.map((rejection, index) => (
-                  <div key={index} className="bg-orange-50 p-3 rounded-lg">
+                  <div key={index} className="bg-cyan-50 p-3 rounded-lg">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Part</label>
@@ -273,7 +273,7 @@ const QualityForm = () => {
               <button
                 type="button"
                 onClick={addRejection}
-                className="text-[#8B4513] border border-[#8B4513] px-3 py-1 rounded-md hover:bg-orange-50 text-sm mt-4"
+                className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-cyan-50 text-sm mt-4"
               >
                 Add More Rejections
               </button>
@@ -281,10 +281,10 @@ const QualityForm = () => {
 
             {/* Stop Times Section */}
             <div className="mb-6">
-              <h3 className="text-md font-semibold text-[#8B4513] mb-2">Stop Times</h3>
+              <h3 className="text-md font-semibold text-[#5506D6] mb-2">Stop Times</h3>
               <div className="space-y-2">
                 {formData.stopTimes.map((stopTime, index) => (
-                  <div key={index} className="bg-orange-50 p-3 rounded-lg">
+                  <div key={index} className="bg-cyan-50 p-3 rounded-lg">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Duration (minutes)</label>
@@ -335,7 +335,7 @@ const QualityForm = () => {
               <button
                 type="button"
                 onClick={addStopTime}
-                className="text-[#8B4513] border border-[#8B4513] px-3 py-1 rounded-md hover:bg-orange-50 text-sm mt-4"
+                className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-orange-50 text-sm mt-4"
               >
                 Add More Stop Times
               </button>
@@ -345,7 +345,7 @@ const QualityForm = () => {
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                className="w-full bg-[#143D60] text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors text-sm"
               >
                 Submit
               </button>
@@ -360,7 +360,7 @@ const QualityForm = () => {
             {/*  Corrective Action Form */}
             <div className="lg:w-2/4">
               <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-                <h2 className="text-lg font-bold text-[#8B4513] mb-4">Corrective Action Form</h2>
+                <h2 className="text-lg font-bold text-[#143D60] mb-4">Corrective Action Form</h2>
                 
                 <div className="space-y-4">
                   <div>
@@ -398,7 +398,7 @@ const QualityForm = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                    className="w-full bg-[#143D60] text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors text-sm"
                   >
                     Submit Correction
                   </button>
@@ -409,7 +409,7 @@ const QualityForm = () => {
             {/* Plan Form */}
             <div className="lg:w-2/4">
               <form onSubmit={handlePlanSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4">
-                <h2 className="text-lg font-bold text-[#8B4513] mb-4">Set Production Plan</h2>
+                <h2 className="text-lg font-bold text-[#143D60] mb-4">Set Production Plan</h2>
                 
                 <div className="space-y-4">
                   <div>
@@ -468,7 +468,7 @@ const QualityForm = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#8B4513] text-white px-4 py-2 rounded-md hover:bg-[#E97451] transition-colors text-sm"
+                    className="w-full bg-[#143D60] text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors text-sm"
                   >
                     Set Plan
                   </button>
