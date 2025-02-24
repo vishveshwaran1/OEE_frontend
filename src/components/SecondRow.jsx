@@ -10,12 +10,12 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
   const [lineChartData, setLineChartData] = useState([]);
 
   const getPartColor = (partNumber) => {
-    return partNumber === '9253020232' ? '#8d2fd0' : '#466d1d';
+    return partNumber === '9253020232' ? '#5506D6' : '#10B54C';
   };
 
   const partColors = {
-    'SMALL CYLINDER': '#466d1d',
-    'BIG CYLINDER': '#8d2fd0'
+    'SMALL CYLINDER': '#10B54C',
+    'BIG CYLINDER': '#5506D6'
   };
 
   useEffect(() => {
@@ -180,7 +180,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}
           itemStyle={{ color: '#666666' }}
-          labelStyle={{ color: '#8B4513', fontWeight: 500 }}
+          labelStyle={{ color: '#143D60', fontWeight: 500 }}
         />
       </PieChart>
     );
@@ -188,7 +188,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
   const ValueBox = ({ title, value, isLoading, color }) => (
     <div className="bg-white h-full border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-orange-50"
+      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50"
            style={{ borderColor: color }}>
         <span className="text-xs font-medium" style={{ color: color }}>{title}</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-50" style={{ color: color }} viewBox="0 0 20 20" fill="currentColor">
@@ -235,16 +235,16 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
       <div className="grid grid-cols-12 gap-3">
         {/* Pie Chart */}
         <div className="col-span-2">
-          <div className="bg-white p-2 h-[210px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#8B4513]">
-            <div className="flex items-center justify-between border-b border-orange-100 pb-2 mb-2">
+          <div className="bg-white p-2 h-[210px] border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 hover:border-[#0BD4E5]">
+            <div className="flex items-center justify-between border-b border-cyan-100 pb-2 mb-2">
               <div className="flex items-center gap-2">
-                <div className="w-1 h-4 bg-[#8B4513] rounded-full"></div>
-                <span className="text-[#8B4513] text-xs font-medium">COMPARISON OF PARTS</span>
+                <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
+                <span className="text-[#143D60] text-xs font-medium">COMPARISON OF PARTS</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8B4513] opacity-40"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8B4513] opacity-60"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8B4513]"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-40"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-60"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60]"></div>
               </div>
             </div>
             <div className="flex flex-col h-[165px]">
@@ -296,8 +296,8 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
           <div className="bg-white p-2 h-[260px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 -mt-[50px]">
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-1 h-4 bg-[#8B4513] rounded-full"></div>
-                <span className="text-[#8B4513] text-sm font-medium">OEE METRICS</span>
+                <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
+                <span className="text-[#143D60] text-sm font-medium">OEE METRICS</span>
               </div>
               <div className="flex gap-4 mb-4">
                 <div className="flex items-center gap-1.5">
@@ -314,7 +314,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
             <div className="flex gap-4 mb-4">
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#ff7b5c]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#FF4747]"></div>
                 <span className="text-xs text-gray-500">OEE</span>
               </div>
              
