@@ -9,7 +9,7 @@ const OEEGauge = ({ value }) => {
   const dashoffset = ((100 - percentage) / 100) * circumference;
   const needleRotation = percentage * 1.8 ; // Maps 0-100 to -90 to 90 degrees
   const getColor = (value) => {
-    if (value >= 80) return "#48e45d";
+    if (value >= 80) return "#1BBD31";
     if (value >= 60) return "#fdeb47";
     return "#ff7b47";
   };
@@ -112,7 +112,7 @@ const OEEGauge = ({ value }) => {
 const FirstRow = () => {
 
   const getPartColor = (partNumber) => {
-    return partNumber === '9253020232' ? '#8d2fd0' : '#466d1d';
+    return partNumber === '9253020232' ? '#5506D6' : '#10B54C';
   };
   
   const [selectedPart, setSelectedPart] = React.useState({
@@ -164,15 +164,15 @@ const FirstRow = () => {
 
   // Replace the original part name and number divs with these components
   const PartNameCard = () => (
-    <div className="bg-white h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group hover:border-[#8B4513]">
-      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-orange-50" 
+    <div className="bg-[#0BD4E5]-50 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 overflow-hidden group hover:border-[#0BD4E5]">
+      <div className="border-b border-[#143D60] py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50" 
            style={{ borderColor: getPartColor(selectedPart.number) }}>
-        <span className="text-xs font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NAME</span>
+        <span className="text-s font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NAME</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-50" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clipRule="evenodd" />
         </svg>
       </div>
-      <div className="py-4 px-3 group-hover:bg-orange-50 transition-colors">
+      <div className="py-4 px-3 group-hover:bg-cyan-50 transition-colors">
         <div className="flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
@@ -186,10 +186,10 @@ const FirstRow = () => {
 
 
   const PartNumberCard = () => (
-    <div className="bg-white h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-visible group hover:border-[#8B4513] relative">
-      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-orange-50"
+    <div className="bg-[#0BD4E5]-50 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 overflow-visible group hover:border-[#0BD4E5] relative">
+      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-100"
            style={{ borderColor: getPartColor(selectedPart.number) }}>
-        <span className="text-xs font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NUMBER</span>
+        <span className="text-s font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NUMBER</span>
         <button 
           onClick={() => document.getElementById('partDropdown').classList.toggle('hidden')}
           className="focus:outline-none"
@@ -201,7 +201,7 @@ const FirstRow = () => {
       </div>
       
       
-      <div className="py-4 px-3 group-hover:bg-orange-50 transition-colors">
+      <div className="py-4 px-3 group-hover:bg-cyan-50 transition-colors">
         <div className="flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
@@ -240,11 +240,11 @@ const FirstRow = () => {
       const numValue = parseFloat(value);
       switch(title) {
         case 'AVAILABILITY':
-          return numValue >= 90 ? '#48e45d' : '#E97451';
+          return numValue >= 90 ? '#1BBD31' : '#FF4747';
         case 'PERFORMANCE':
-          return numValue >= 75 ? '#48e45d' : '#E97451';
+          return numValue >= 75 ? '#1BBD31' : '#FF4747';
         case 'QUALITY':
-          return numValue >= 70 ? '#48e45d' : '#E97451';
+          return numValue >= 70 ? '#1BBD31' : '#FF4747';
         default:
           return '#E97451';
       }
@@ -266,8 +266,8 @@ const FirstRow = () => {
     
     // Add cursor and hover styles for clickable cards
     const isClickable = title === 'AVAILABILITY' || title === 'QUALITY';
-    const cardClasses = `bg-white p-2 h-full border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ${
-      isClickable ? 'cursor-pointer hover:border-[#8B4513]' : ''
+    const cardClasses = `bg-[#0BD4E5]-50 p-2 h-full border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 hover:border-[#0BD4E5] ${
+      isClickable ? 'cursor-pointer hover:border-[#0BD4E5]' : ''
     }`;
 
   
@@ -278,8 +278,8 @@ const FirstRow = () => {
       >
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-1.5">
-            <div className="w-1 h-3 bg-[#8B4513] rounded-full"></div>
-            <span className="text-[#8B4513] text-xs font-medium">{title}</span>
+            <div className="w-1 h-3 bg-[#143D60] rounded-full"></div>
+            <span className="text-[#143D60] text-xs font-medium">{title}</span>
           </div>
           <div className="flex items-center gap-1">
             <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-yellow-500' : 'bg-green-500'} animate-pulse`}></div>
@@ -320,8 +320,8 @@ const FirstRow = () => {
                   <span className="text-[9px] text-gray-500">Current</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
-                  <span className="text-[9px] text-gray-500">Target</span>
+                  {/* <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                  <span className="text-[9px] text-gray-500">Target</span> */}
                 </div>
               </div>
             </div>
@@ -346,7 +346,7 @@ const FirstRow = () => {
         <div className="col-span-2">
           <div className="bg-white p-2 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
             <div className="px-2 flex items-center justify-between">
-              <span className="text-[#8B4513] text-xs font-medium">OEE</span>
+              <span className="text-[#143D60] text-xs font-medium">OEE</span>
               <div className="flex items-center gap-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
                 <span className="text-[9px] text-gray-500">Live</span>
