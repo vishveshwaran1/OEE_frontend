@@ -10,11 +10,11 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
   const [lineChartData, setLineChartData] = useState([]);
 
   const getPartColor = (partNumber) => {
-    return partNumber === '9253020232' ? '#5506D6' : '#10B54C';
+    return partNumber === '9253020232' ? '#5506D6' : '#00B2FF';
   };
 
   const partColors = {
-    'SMALL CYLINDER': '#10B54C',
+    'SMALL CYLINDER': '#00B2FF',
     'BIG CYLINDER': '#5506D6'
   };
 
