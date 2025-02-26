@@ -112,7 +112,7 @@ const OEEGauge = ({ value }) => {
 const FirstRow = () => {
 
   const getPartColor = (partNumber) => {
-    return partNumber === '9253020232' ? '#5506D6' : '#10B54C';
+    return partNumber === '9253020232' ? '#5506D6' : '#00B2FF';
   };
   
   const [selectedPart, setSelectedPart] = React.useState({
