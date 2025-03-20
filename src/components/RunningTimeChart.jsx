@@ -186,7 +186,7 @@ function RunningTimeChart() {
                 chartData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`}
-                    fill={entry.value >= threshold ? '#FFA318' : '#ef4444'}
+                    fill={entry.value >= threshold ? '#16a34a' : '#FFA318'}
                   />
                 ))
               }
