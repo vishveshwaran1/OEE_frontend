@@ -231,7 +231,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
   );
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4">
       <div className="grid grid-cols-12 gap-3">
         {/* Pie Chart */}
         <div className="col-span-2">

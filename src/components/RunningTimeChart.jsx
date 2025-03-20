@@ -16,7 +16,8 @@ function RunningTimeChart() {
         return {
             name: `|${day}-${shiftFormatted}|`,
             plan: item.plan,
-            actual: item.actual
+            actual: item.actual,
+            month: dateObj.toLocaleString('default', { month: 'short' }) // new field
         };
     });
 };
@@ -107,10 +108,10 @@ function RunningTimeChart() {
   }
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4">
       <div className="flex gap-4">
       {/* Running Time Chart */}
-      <div className="w-[70%] bg-white p-2 h-[180px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+      <div className="w-[70%] bg-white p-2 h-[195px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-[#143D60] text-xs font-medium">RUNNING TIME</h3>
           <div className="flex items-center gap-4">
@@ -198,7 +199,7 @@ function RunningTimeChart() {
         </div>
 
         {/* Plan vs Actual Chart - 25% width */}
-        <div className="w-[30%] bg-white p-2 h-[180px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+        <div className="w-[30%] bg-white p-2 h-[195px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-[#143D60] text-xs font-medium">PLAN VS ACTUAL</h3>
             <div className="flex items-center gap-4">
@@ -213,51 +214,55 @@ function RunningTimeChart() {
             </div>
           </div>
 
-          <div className="h-[140px] -mt-1">
-            <ComposedChart
-              width={400}
-              height={140}
-              data={planActualData}
-              margin={{ top: 10, right: 10, left: 20, bottom: 0 }}
-            >
-              <XAxis
-                dataKey="name"
-                tickSize={0}
-                height={25}
-                axisLine={{ stroke: '#000000' }}
-                tick={{ fontSize: 10, fill: '#000000' }}
-                tickLine={false}
-              />
-              <YAxis
-                tickSize={0}
-                width={30}
-                axisLine={{ stroke: '#000000' }}
-                tick={{ fontSize: 11, fill: '#000000' }}
-                tickLine={false}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'white',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  padding: '8px'
-                }}
-              />
-              <Bar 
-                dataKey="plan"
-                fill="#2563eb"
-                barSize={30}
-              />
-              <Line 
-                type="monotone"
-                dataKey="actual"
-                stroke="#FFA928"
-                strokeWidth={2}
-                dot={{ fill: '#FFA928', r: 4 }}
-                activeDot={{ r: 6 }}
-              />
-            </ComposedChart>
-          </div>
+          <div className="h-[140px] mt-1">
+              <ComposedChart
+                width={400}
+                height={140}
+                data={planActualData}
+                margin={{ top: 10, right: 10, left: 20, bottom: 0 }}
+              >
+                <XAxis
+                  dataKey="name"
+                  tickSize={0}
+                  height={25}
+                  axisLine={{ stroke: '#000000' }}
+                  tick={{ fontSize: 10, fill: '#000000' }}
+                  tickLine={false}
+                />
+                <YAxis
+                  tickSize={0}
+                  width={30}
+                  axisLine={{ stroke: '#000000' }}
+                  tick={{ fontSize: 11, fill: '#000000' }}
+                  tickLine={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'white',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    padding: '8px'
+                  }}
+                />
+                <Bar 
+                  dataKey="plan"
+                  fill="#2563eb"
+                  barSize={30}
+                />
+                <Line 
+                  type="monotone"
+                  dataKey="actual"
+                  stroke="#FFA928"
+                  strokeWidth={2}
+                  dot={{ fill: '#FFA928', r: 4 }}
+                  activeDot={{ r: 6 }}
+                />
+              </ComposedChart>
+            </div>
+            {/* Month overall label */}
+            <div className="text-center text-xs text-gray-700">
+              {planActualData.length > 0 && planActualData[0].month}
+            </div>
         </div>
       </div>
     </div>
