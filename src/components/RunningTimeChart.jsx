@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, Cell, ComposedChart } from 'recharts'
 import { LineChart, Line, Legend } from 'recharts';
 import { useState, useEffect } from 'react'
 
@@ -9,15 +9,17 @@ function RunningTimeChart() {
   const threshold = 106;
 
   const formatPlanActualData = (data) => {
-    return data.map(item => ({
-      name: `${new Date(item.date).toLocaleDateString('en-GB', { 
-        month: 'short', 
-        day: 'numeric'
-      })} ${item.shift}`,
-      plan: item.plan,
-      actual: item.actual
-    }));
-  };
+    return data.map(item => {
+        const dateObj = new Date(item.date);
+        const day = dateObj.getDate();
+        const shiftFormatted = item.shift === 'shift-1' ? 'S1' : item.shift === 'shift-2' ? 'S2' : item.shift;
+        return {
+            name: `|${day}-${shiftFormatted}|`,
+            plan: item.plan,
+            actual: item.actual
+        };
+    });
+};
 
   // Function to process hourly data
   const processHourlyData = (hourlyProduction) => {
@@ -205,14 +207,14 @@ function RunningTimeChart() {
                 <span className="text-xs text-gray-500">Plan</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#16a34a]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#FFA928]"></div>
                 <span className="text-xs text-gray-500">Actual</span>
               </div>
             </div>
           </div>
 
           <div className="h-[140px] -mt-1">
-            <LineChart
+            <ComposedChart
               width={400}
               height={140}
               data={planActualData}
@@ -222,17 +224,15 @@ function RunningTimeChart() {
                 dataKey="name"
                 tickSize={0}
                 height={25}
-                axisLine={{ stroke: '#666' }}
-                tick={{ fontSize: 10, fill: '#666' }}
+                axisLine={{ stroke: '#000000' }}
+                tick={{ fontSize: 10, fill: '#000000' }}
                 tickLine={false}
-                angle={-45}
-                textAnchor="end"
               />
               <YAxis
                 tickSize={0}
                 width={30}
-                axisLine={{ stroke: '#666' }}
-                tick={{ fontSize: 11, fill: '#666' }}
+                axisLine={{ stroke: '#000000' }}
+                tick={{ fontSize: 11, fill: '#000000' }}
                 tickLine={false}
               />
               <Tooltip
@@ -243,28 +243,25 @@ function RunningTimeChart() {
                   padding: '8px'
                 }}
               />
-              <Line
-                type="monotone"
+              <Bar 
                 dataKey="plan"
-                stroke="#2563eb"
-                strokeWidth={2}
-                dot={{ fill: '#2563eb', r: 4 }}
-                activeDot={{ r: 6 }}
+                fill="#2563eb"
+                barSize={30}
               />
-              <Line
+              <Line 
                 type="monotone"
                 dataKey="actual"
-                stroke="#16a34a"
+                stroke="#FFA928"
                 strokeWidth={2}
-                dot={{ fill: '#16a34a', r: 4 }}
+                dot={{ fill: '#FFA928', r: 4 }}
                 activeDot={{ r: 6 }}
               />
-            </LineChart>
+            </ComposedChart>
           </div>
         </div>
       </div>
     </div>
   )
-}
+} 
 
 export default RunningTimeChart
