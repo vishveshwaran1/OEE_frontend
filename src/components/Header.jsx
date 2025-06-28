@@ -70,6 +70,13 @@ function Header() {
           Form
         </button>
 
+         <button
+          onClick={() => navigate('/reports')}
+          className="bg-[#6C2DD2] hover:bg-[#974ED1] text-white text-sm px-4 py-2 rounded-lg shadow-lg transition-colors duration-300"
+        >
+          Report
+        </button>
+
         {/* Current Date and Shift */}
         <div className="bg-[#6C2DD2] text-white text-sm px-4 py-2 rounded-lg shadow-lg">
           {`Date: ${currentDate} | ${getCurrentShift()}`}
