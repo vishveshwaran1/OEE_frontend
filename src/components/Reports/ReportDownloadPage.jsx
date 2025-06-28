@@ -78,16 +78,21 @@ const ReportDownloadPage = () => {
         const rows = reportData.map(item => 
     columns.map(col => {
         let value = item[col.dataIndex];
+
+        // Handle nested objects and arrays
         if (value && typeof value === 'object') {
             value = JSON.stringify(value);
         }
+
+        // Format valid dates as text so Excel doesn't corrupt them
         if (moment(value, moment.ISO_8601, true).isValid()) {
-            // Format dates explicitly and wrap in quotes
-            value = `"${moment(value).format('YYYY-MM-DD HH:mm:ss')}"`;
+            value = `'${moment(value).format('YYYY-MM-DD HH:mm:ss')}'`; // leading apostrophe forces Excel to treat as text
         }
+
         return value !== undefined ? value : '';
     }).join(',')
 ).join('\n');
+
 
 
         const csvContent = `${headers}\n${rows}`;
