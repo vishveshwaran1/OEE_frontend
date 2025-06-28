@@ -137,7 +137,7 @@ const FirstRow = () => {
   // Add fetch function
   const fetchOEEData = async () => {
     try {
-      const response = await fetch('https://oee.onrender.com/api/oee');
+      const response = await fetch('https://oee-backend-eta.vercel.app/api/oee');
       const result = await response.json();
       if (result.success) {
         setOeeData({
