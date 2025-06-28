@@ -15,7 +15,7 @@ const Quality = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('https://oee-backend-eta.vercel.app/api/monthly-stats');
+        const response = await fetch('https://oee-backend-1.onrender.com//api/monthly-stats');
         const data = await response.json();
         
         if (data.success) {
