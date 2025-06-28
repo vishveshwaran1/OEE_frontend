@@ -9,7 +9,7 @@ const Availability = () => {
   useEffect(() => {
     const fetchRuntimeData = async () => {
       try {
-        const response = await fetch('https://oee-backend-1.onrender.com//api/monthly-runtime');
+        const response = await fetch('https://oee-backend-1.onrender.com/api/monthly-runtime');
         const data = await response.json();
         if (data.success) {
           setRuntimeData(data.data);
