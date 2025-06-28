@@ -25,15 +25,18 @@ const ReportDownloadPage = () => {
     ];
 
     const generateColumns = (data) => {
-        if (!data || data.length === 0) return [];
-        
-        const sampleItem = data[0];
-        return Object.keys(sampleItem).map(key => ({
+    if (!data || data.length === 0) return [];
+
+    const sampleItem = data[0];
+    return Object.keys(sampleItem)
+        .filter(key => key !== '_id') // exclude _id
+        .map(key => ({
             title: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
             dataIndex: key,
             key: key,
         }));
-    };
+};
+
 
     const fetchReport = async () => {
         if (!dateRange || dateRange.length !== 2) {
@@ -73,15 +76,19 @@ const ReportDownloadPage = () => {
 
         const headers = columns.map(col => col.title).join(',');
         const rows = reportData.map(item => 
-            columns.map(col => {
-                const value = item[col.dataIndex];
-                // Handle nested objects and arrays
-                if (value && typeof value === 'object') {
-                    return JSON.stringify(value);
-                }
-                return value !== undefined ? value : '';
-            }).join(',')
-        ).join('\n');
+    columns.map(col => {
+        let value = item[col.dataIndex];
+        if (value && typeof value === 'object') {
+            value = JSON.stringify(value);
+        }
+        if (moment(value, moment.ISO_8601, true).isValid()) {
+            // Format dates explicitly and wrap in quotes
+            value = `"${moment(value).format('YYYY-MM-DD HH:mm:ss')}"`;
+        }
+        return value !== undefined ? value : '';
+    }).join(',')
+).join('\n');
+
 
         const csvContent = `${headers}\n${rows}`;
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -157,18 +164,18 @@ const ReportDownloadPage = () => {
                 reportData && (
                     <div style={{ marginTop: '20px' }}>
                         <Table 
-                            columns={columns} 
-                            dataSource={reportData} 
-                            rowKey="_id"
-                            scroll={{ x: true }}
-                            bordered
-                            size="small"
-                            pagination={{ 
-                                pageSize: 10,
-                                showSizeChanger: true,
-                                pageSizeOptions: ['10', '20', '50', '100']
-                            }}
-                        />
+    columns={columns} 
+    dataSource={reportData.map((item, index) => ({ ...item, key: index }))} 
+    scroll={{ x: true }}
+    bordered
+    size="small"
+    pagination={{ 
+        pageSize: 10,
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '50', '100']
+    }}
+/>
+
                     </div>
                 )
             )}
