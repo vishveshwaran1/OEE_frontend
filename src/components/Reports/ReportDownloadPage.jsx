@@ -24,18 +24,32 @@ const ReportDownloadPage = () => {
         { value: 'plan-actual', label: 'Plan vs Actual' }
     ];
 
-    const generateColumns = (data) => {
+   const generateColumns = (data) => {
     if (!data || data.length === 0) return [];
 
     const sampleItem = data[0];
-    return Object.keys(sampleItem)
-        .filter(key => key !== '_id') // exclude _id
+
+    // Create columns from data keys, excluding _id
+    const dynamicColumns = Object.keys(sampleItem)
+        .filter(key => key !== '_id')
         .map(key => ({
             title: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
             dataIndex: key,
             key: key,
         }));
+
+    // Add "S.No" column at the beginning
+    return [
+        {
+            title: 'S.No',
+            dataIndex: 'serial',
+            key: 'serial',
+            render: (_, __, index) => index + 1,
+        },
+        ...dynamicColumns
+    ];
 };
+
 
 
     const fetchReport = async () => {
@@ -73,25 +87,26 @@ const ReportDownloadPage = () => {
             message.warning('No data to download');
             return;
         }
+const headers = ['S.No', ...columns.filter(col => col.dataIndex !== 'serial').map(col => col.title)];
 
-        const headers = columns.map(col => col.title).join(',');
-        const rows = reportData.map(item => 
-    columns.map(col => {
+const rows = reportData.map((item, index) => {
+    const row = [index + 1]; // Serial Number
+    columns.filter(col => col.dataIndex !== 'serial').forEach(col => {
         let value = item[col.dataIndex];
 
-        // Handle nested objects and arrays
         if (value && typeof value === 'object') {
             value = JSON.stringify(value);
         }
 
-        // Format valid dates as text so Excel doesn't corrupt them
         if (moment(value, moment.ISO_8601, true).isValid()) {
-            value = `'${moment(value).format('YYYY-MM-DD HH:mm:ss')}'`; // leading apostrophe forces Excel to treat as text
+            value = `'${moment(value).format('YYYY-MM-DD HH:mm:ss')}'`;
         }
 
-        return value !== undefined ? value : '';
-    }).join(',')
-).join('\n');
+        row.push(value !== undefined ? value : '');
+    });
+    return row.join(',');
+}).join('\n');
+
 
 
 
@@ -107,11 +122,23 @@ const ReportDownloadPage = () => {
             return;
         }
 
-        const jsonContent = JSON.stringify(reportData, null, 2);
+       const jsonWithSerial = reportData.map((item, index) => ({
+    SNo: index + 1,
+    ...item
+}));
+const jsonContent = JSON.stringify(jsonWithSerial, null, 2);
+
         const blob = new Blob([jsonContent], { type: 'application/json' });
         const filename = `${reportType}_report_${moment().format('YYYYMMDD_HHmmss')}.json`;
         saveAs(blob, filename);
     };
+const processedData = reportData
+  ? reportData.map((item, index) => ({
+        ...item,
+        serial: index + 1,
+        key: index,
+    }))
+  : [];
 
     return (
         <div className="report-page" style={{ padding: '20px' }}>
@@ -131,11 +158,13 @@ const ReportDownloadPage = () => {
                 </Select>
                 
                 <RangePicker
-                    style={{ width: '300px' }}
-                    value={dateRange}
-                    onChange={setDateRange}
-                    disabledDate={current => current && current > moment().endOf('day')}
-                />
+    style={{ width: '300px', height: '40px' }}
+    dropdownClassName="custom-calendar-dropdown"
+    value={dateRange}
+    onChange={setDateRange}
+    disabledDate={current => current && current > moment().endOf('day')}
+/>
+
                 
                 <Button 
                     type="primary" 
@@ -170,16 +199,16 @@ const ReportDownloadPage = () => {
                     <div style={{ marginTop: '20px' }}>
                         <Table 
     columns={columns} 
-    dataSource={reportData.map((item, index) => ({ ...item, key: index }))} 
+    dataSource={processedData}
     scroll={{ x: true }}
     bordered
     size="small"
-    pagination={{ 
-        pageSize: 10,
-        showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '50', '100']
-    }}
+    // pagination={{ 
+    //     pageSize: 10,
+    //     showSizeChanger: true
+    // }}
 />
+
 
                     </div>
                 )
