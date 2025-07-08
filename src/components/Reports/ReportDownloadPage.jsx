@@ -157,13 +157,21 @@ const processedData = reportData
                     ))}
                 </Select>
                 
-                <RangePicker
-    style={{ width: '300px', height: '40px' }}
-    dropdownClassName="custom-calendar-dropdown"
+            <RangePicker
+    style={{
+        width: '300px',
+        height: '40px',
+        backgroundColor: '#fff',
+        color: '#000',
+        opacity: 1, // ensure it's not transparent
+        border: '1px solid #0a0a0a'
+    }}
     value={dateRange}
     onChange={setDateRange}
     disabledDate={current => current && current > moment().endOf('day')}
 />
+
+
 
                 
                 <Button 
@@ -181,12 +189,12 @@ const processedData = reportData
                     Download CSV
                 </Button>
                 
-                <Button 
+                {/* <Button 
                     onClick={downloadJSON}
                     disabled={!reportData || reportData.length === 0}
                 >
                     Download JSON
-                </Button>
+                </Button> */}
             </div>
             
             {loading ? (

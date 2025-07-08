@@ -322,7 +322,7 @@ function SecondRow({ selectedPart = { number: '9253020232' } }) {
 
             <div className="h-[200px] mt-4">
               <LineChart
-                width={590}
+                width='100%'
                 height={180}
                 series={[
                   {
