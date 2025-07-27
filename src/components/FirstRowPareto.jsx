@@ -65,7 +65,7 @@ const FirstRow = ({ runtimeData }) => {
           <div className="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#1676C9]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2"/>
-              <path d="M9 8h6m-6 4h6m-6 4h6" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M9 8h6m-6 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
             <span className="text-lg text-gray-800 font-bold">{selectedPart.number}</span>
           </div>
@@ -162,8 +162,8 @@ const FirstRow = ({ runtimeData }) => {
   );
 
   return (
-    <div className="px-4 py-2">
-      <div className="grid grid-cols-4 gap-4">
+    <div className="px-6 py-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <PartNameCard />
         <PartNumberCard />
         <GoodCountCard 

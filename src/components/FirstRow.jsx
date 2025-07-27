@@ -164,18 +164,18 @@ const FirstRow = () => {
 
   // Replace the original part name and number divs with these components
   const PartNameCard = () => (
-    <div className="bg-[#0BD4E5]-50 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 overflow-hidden group hover:border-[#0BD4E5]">
-      <div className="border-b border-[#143D60] py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50" 
-           style={{ borderColor: getPartColor(selectedPart.number) }}>
-        <span className="text-s font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NAME</span>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-50" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clipRule="evenodd" />
+    <div className="bg-gradient-to-br from-white to-cyan-50 h-[164px] border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group hover:border-[#0BD4E5]">
+      <div className="border-b border-[#143D60] py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50">
+        <span className="text-[#143D60] text-sm font-semibold tracking-wide">PART NAME</span>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#143D60] opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
         </svg>
       </div>
       <div className="py-4 px-3 group-hover:bg-cyan-50 transition-colors">
         <div className="flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#143D60]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <ellipse cx="12" cy="5" rx="8" ry="3" strokeWidth="2"/>
+            <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5" strokeWidth="2"/>
           </svg>
           <span className="text-lg text-gray-800 font-bold">{selectedPart.name}</span>
         </div>
@@ -186,24 +186,21 @@ const FirstRow = () => {
 
 
   const PartNumberCard = () => (
-    <div className="bg-[#0BD4E5]-50 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 overflow-visible group hover:border-[#0BD4E5] relative">
-      <div className="border-b py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-100"
-           style={{ borderColor: getPartColor(selectedPart.number) }}>
-        <span className="text-s font-medium" style={{ color: getPartColor(selectedPart.number) }}>PART NUMBER</span>
+    <div className="bg-gradient-to-br from-white to-cyan-50 h-[164px] border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-visible group hover:border-[#0BD4E5] relative">
+      <div className="border-b border-[#143D60] py-3 px-3 flex items-center justify-between bg-gradient-to-r from-white to-cyan-50">
+        <span className="text-[#143D60] text-sm font-semibold tracking-wide">PART NUMBER</span>
         <button 
           onClick={() => document.getElementById('partDropdown').classList.toggle('hidden')}
           className="focus:outline-none"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 opacity-50" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#143D60] opacity-50" viewBox="0 0 20 20" fill="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
       </div>
-      
-      
       <div className="py-4 px-3 group-hover:bg-cyan-50 transition-colors">
         <div className="flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" style={{ color: getPartColor(selectedPart.number) }} viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#143D60]" viewBox="0 0 20 20" fill="currentColor">
             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
           </svg>
           <span className="text-lg text-gray-800 font-bold">{selectedPart.number}</span>
@@ -220,13 +217,17 @@ const FirstRow = () => {
         {parts.map(part => (
           <div
             key={part.number}
-            className="px-4 py-2 hover:bg-orange-50 cursor-pointer text-sm border-b last:border-b-0"
+            className="px-4 py-2 hover:bg-cyan-50 cursor-pointer text-sm border-b last:border-b-0 flex items-center gap-2"
             onClick={() => {
               setSelectedPart(part);
               document.getElementById('partDropdown').classList.add('hidden');
             }}
           >
-            {part.number}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#143D60]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2"/>
+              <path d="M8 12h8m-4-4v8" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <span>{part.number}</span>
           </div>
         ))}
       </div>
@@ -251,11 +252,13 @@ const FirstRow = () => {
     };
 
     const navigate = useNavigate();
-  
     const color = getColor(title, value);
     const isPositive = parseFloat(trend) >= 0;
+    const isClickable = title === 'AVAILABILITY' || title === 'QUALITY';
+    const cardClasses = `bg-gradient-to-br from-white to-cyan-50 p-3 h-[164px] border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#0BD4E5] ${
+      isClickable ? 'cursor-pointer hover:border-[#0BD4E5]' : ''
+    }`;
 
-    // Update handleClick to use navigate instead of window.location
     const handleClick = () => {
       if (title === 'AVAILABILITY') {
         navigate('/availability');
@@ -263,14 +266,7 @@ const FirstRow = () => {
         navigate('/quality');
       }
     };
-    
-    // Add cursor and hover styles for clickable cards
-    const isClickable = title === 'AVAILABILITY' || title === 'QUALITY';
-    const cardClasses = `bg-[#0BD4E5]-50 p-2 h-full border border-gray-200 rounded-lg shadow-md hover:shadow-[0_0_1px_#fff,inset_0_0_2px_#fff,0_0_1px_#0BD4E5,0_0_3px_#08f,0_0_9px_#0BD4E5] transition-all duration-300 hover:border-[#0BD4E5] ${
-      isClickable ? 'cursor-pointer hover:border-[#0BD4E5]' : ''
-    }`;
 
-  
     return (
       <div 
         className={cardClasses}
@@ -286,7 +282,6 @@ const FirstRow = () => {
             <span className="text-[9px] text-gray-500">Live</span>
           </div>
         </div>
-  
         {isLoading ? (
           <div className="flex items-center justify-center h-20">
             <span className="text-sm text-gray-500">Loading...</span>
@@ -304,7 +299,7 @@ const FirstRow = () => {
             </div>
   
             <div className="mt-2">
-              <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                 <div 
                   className="h-full rounded-full transition-all duration-500"
                   style={{ 
@@ -332,28 +327,26 @@ const FirstRow = () => {
   };
 
   return (
-    <div className="px-4 py-2">
-      <div className="grid grid-cols-12 gap-3">
+    <div className="px-2 py-2">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
         {/* Part Info Section */}
-       
-        <div className="col-span-4 grid grid-cols-2 gap-2">
-          <PartNameCard />
-          <PartNumberCard />
+        <div className="col-span-12 md:col-span-4 grid grid-cols-2 md:grid-cols-2 gap-3 min-w-0">
+          <div className="w-full min-w-0">{PartNameCard()}</div>
+          <div className="w-full min-w-0">{PartNumberCard()}</div>
         </div>
-        
 
         {/* OEE Gauge */}
-        <div className="col-span-2">
-          <div className="bg-white p-2 h-[164px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-            <div className="px-2 flex items-center justify-between">
-              <span className="text-[#143D60] text-xs font-medium">OEE</span>
+        <div className="col-span-12 md:col-span-2 min-w-0 flex items-center justify-center">
+          <div className="bg-white p-3 h-[164px] w-full border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-w-0">
+            <div className="flex items-center justify-between">
+              <span className="text-[#143D60] text-xs font-semibold">OEE</span>
               <div className="flex items-center gap-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
                 <span className="text-[9px] text-gray-500">Live</span>
               </div>
             </div>
-            <div className="py-2 px-2">
-              <div className="relative h-[100px] flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center">
+              <div className="w-[110px] h-[110px] flex items-center justify-center">
                 <OEEGauge value={oeeData.oee} />
               </div>
             </div>
@@ -361,39 +354,39 @@ const FirstRow = () => {
         </div>
 
         {/* Metrics Cards */}
-        <div className="col-span-6">
-        <div className="grid grid-cols-3 gap-3 h-[138x]">
-          <div className="w-full border border-gray-200 rounded-lg shadow-sm">
-            <MetricCard 
-              title="AVAILABILITY"
-              value={oeeData.availability}
-              trend="(+10% ▲)"
-              prevValue="vs prev 11.6K"
-              isLoading={isLoading}
-            />
-          </div>
-          <div className="w-full border border-gray-200 rounded-lg shadow-sm">
-            <MetricCard 
-              title="PERFORMANCE"
-              value={oeeData.performance}
-              trend="(+10% ▲)"
-              prevValue="vs prev 11.6K"
-              isLoading={isLoading}
-            />
-          </div>
-          <div className="w-full border border-gray-200 rounded-lg shadow-sm">
-            <MetricCard 
-              title="QUALITY"
-              value={oeeData.quality}
-              trend="(+10% ▲)"
-              prevValue="vs prev 11.6K"
-              isLoading={isLoading}
-            />
+        <div className="col-span-12 md:col-span-6 min-w-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full min-w-0">
+            <div className="w-full min-w-0">
+              <MetricCard 
+                title="AVAILABILITY"
+                value={oeeData.availability}
+                trend="(+10% ▲)"
+                prevValue="vs prev 11.6K"
+                isLoading={isLoading}
+              />
+            </div>
+            <div className="w-full min-w-0">
+              <MetricCard 
+                title="PERFORMANCE"
+                value={oeeData.performance}
+                trend="(+10% ▲)"
+                prevValue="vs prev 11.6K"
+                isLoading={isLoading}
+              />
+            </div>
+            <div className="w-full min-w-0">
+              <MetricCard 
+                title="QUALITY"
+                value={oeeData.quality}
+                trend="(+10% ▲)"
+                prevValue="vs prev 11.6K"
+                isLoading={isLoading}
+              />
+            </div>
           </div>
         </div>
       </div>
-      </div>
-      <div className="mt-2">
+      <div className="mt-4">
         <SecondRow selectedPart={selectedPart} />
       </div>
     </div>
