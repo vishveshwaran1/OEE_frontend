@@ -239,164 +239,164 @@ const ValueBox = ({ title, isLoading, color, productionData }) => (
 
   return (
     <div className="px-4">
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-      {/* Pie Chart */}
-      <div className="md:col-span-3 col-span-1">
-        <div className="bg-white p-4 h-[200px] flex flex-col justify-between border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#0BD4E5] overflow-hidden">
-          <div>
-            <div className="flex items-center justify-between border-b border-cyan-100 pb-2 mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
-                <span className="text-[#143D60] text-xs font-semibold">PARTS COMPARISON</span>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-[220px]">
+        {/* Pie Chart */}
+        <div className="md:col-span-3 col-span-1">
+          <div className="bg-white p-4 h-[220px] flex flex-col justify-between border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#0BD4E5]">
+            <div>
+              <div className="flex items-center justify-between border-b border-cyan-100 pb-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
+                  <span className="text-[#143D60] text-xs font-semibold">PARTS COMPARISON</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-40"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-60"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#143D60]"></div>
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-40"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60] opacity-60"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#143D60]"></div>
+              <div className="flex items-center justify-center h-[120px]">
+                {renderPieChart()}
               </div>
             </div>
-            <div className="flex items-center justify-center h-[120px]">
-              {renderPieChart()}
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-3 mt-2">
-            {pieData.map((item, index) => (
-              <div 
-                key={index} 
-                className="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 hover:bg-gray-100 transition-all duration-300 cursor-pointer"
-              >
+            <div className="flex justify-center items-center gap-3 mt-2">
+              {pieData.map((item, index) => (
                 <div 
-                  className="w-2.5 h-2.5 rounded-full"
-                  style={{ backgroundColor: item.color }}
-                />
-                <span className="text-xs text-gray-600 font-medium truncate max-w-[80px]">
-                  {item.name}
-                </span>
-              </div>
-            ))}
+                  key={index} 
+                  className="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-50 hover:bg-gray-100 transition-all duration-300 cursor-pointer"
+                >
+                  <div 
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className="text-xs text-gray-600 font-medium">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Plan/Actual */}
-      <div className="md:col-span-3 col-span-1 grid grid-cols-2 gap-3">
-        <ValueBox 
-          title="PLAN" 
-          isLoading={isLoading}
-          color={getPartColor(selectedPart.number)}
-          productionData={productionData}
-        />
-        <ValueBox 
-          title="ACTUAL" 
-          isLoading={isLoading}
-          color={getPartColor(selectedPart.number)}
-          productionData={productionData}
-        />
-      </div>
+        {/* Plan/Actual */}
+        <div className="md:col-span-3 col-span-1 grid grid-cols-2 gap-3">
+          <ValueBox 
+            title="PLAN" 
+            isLoading={isLoading}
+            color={getPartColor(selectedPart.number)}
+            productionData={productionData}
+          />
+          <ValueBox 
+            title="ACTUAL" 
+            isLoading={isLoading}
+            color={getPartColor(selectedPart.number)}
+            productionData={productionData}
+          />
+        </div>
 
-      {/* Line Chart */}
-      <div className="md:col-span-6 col-span-1">
-        <div className="bg-white p-4 h-[200px] flex flex-col border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-          <div className="flex justify-between items-center mb-2">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
-              <span className="text-[#143D60] text-sm font-semibold">OEE METRICS</span>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#ff7b5c]"></div>
-                <span className="text-xs text-gray-500">Shift 1</span>
+        {/* Line Chart */}
+        <div className="md:col-span-6 col-span-1">
+          <div className="bg-white p-4 h-[220px] flex flex-col border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>
+                <span className="text-[#143D60] text-sm font-semibold">OEE METRICS</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#2563eb]"></div>
-                <span className="text-xs text-gray-500">Shift 2</span>
+              <div className="flex gap-4">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#ff7b5c]"></div>
+                  <span className="text-xs text-gray-500">Shift 1</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#2563eb]"></div>
+                  <span className="text-xs text-gray-500">Shift 2</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex-1 flex items-center">
-            <LineChart
-              width='100%'
-              height={160}
-              series={[
-                {
-                  data: lineChartData.map(item => item['shift-1'] || null),
-                  area: true,
-                  color: '#ff7b5c',
-                  showMark: true,
-                  strokeWidth: 2,
-                  valueFormatter: (value) => value ? `${value}%` : 'No data',
-                  areaStyle: {
-                    fill: '#ff7b5c',
+            <div className="flex-1 flex items-center">
+              <LineChart
+                width='100%'
+                height={160}
+                series={[
+                  {
+                    data: lineChartData.map(item => item['shift-1'] || null),
+                    area: true,
+                    color: '#ff7b5c',
+                    showMark: true,
+                    strokeWidth: 2,
+                    valueFormatter: (value) => value ? `${value}%` : 'No data',
+                    areaStyle: {
+                      fill: '#ff7b5c',
+                      opacity: 0.2
+                    }
+                  },
+                  {
+                    data: lineChartData.map(item => item['shift-2'] || null),
+                    area: true,
+                    color: '#2563eb',
+                    showMark: true,
+                    strokeWidth: 2,
+                    valueFormatter: (value) => value ? `${value}%` : 'No data',
+                    areaStyle: {
+                      fill: '#2563eb',
+                      opacity: 0.2
+                    }
+                  }
+                ]}
+                xAxis={[{
+                  data: lineChartData.map(item => item.name),
+                  scaleType: 'point',
+                  tickLabelStyle: {
+                    fontSize: 11,
+                    fill: '#666'
+                  },
+                  valueFormatter: (value) => value,
+                  position: 'bottom',
+                  axisLine: { 
+                    strokeWidth: 1,
+                    opacity: 0.2
+                  },
+                  tickSize: 0,
+                  padding: { left: -20, right: -20 }
+                }]}
+                yAxis={[{
+                  min: 0,
+                  max: 100,
+                  tickValues: [0, 20, 40, 60, 80, 100],
+                  tickLabelStyle: {
+                    fontSize: 11,
+                    fill: '#666'
+                  },
+                  position: 'left',
+                  axisLine: { 
+                    strokeWidth: 1,
+                    opacity: 0.2
+                  },
+                  tickSize: 0,
+                  valueFormatter: (value) => `${value}`
+                }]}
+                margin={{ left: 35, right: 10, top: 15, bottom: 25 }}
+                sx={{
+                  '.MuiLineElement-root': {
+                    strokeWidth: 2,
+                  },
+                  '.MuiAreaElement-root': {
+                    fillOpacity: 0.2,
+                  },
+                  '.MuiMarkElement-root': {
+                    scale: '0.6',
+                  },
+                  '.MuiChartsAxis-line': {
+                    stroke: '#666',
                     opacity: 0.2
                   }
-                },
-                {
-                  data: lineChartData.map(item => item['shift-2'] || null),
-                  area: true,
-                  color: '#2563eb',
-                  showMark: true,
-                  strokeWidth: 2,
-                  valueFormatter: (value) => value ? `${value}%` : 'No data',
-                  areaStyle: {
-                    fill: '#2563eb',
-                    opacity: 0.2
-                  }
-                }
-              ]}
-              xAxis={[{
-                data: lineChartData.map(item => item.name),
-                scaleType: 'point',
-                tickLabelStyle: {
-                  fontSize: 11,
-                  fill: '#666'
-                },
-                valueFormatter: (value) => value,
-                position: 'bottom',
-                axisLine: { 
-                  strokeWidth: 1,
-                  opacity: 0.2
-                },
-                tickSize: 0,
-                padding: { left: -20, right: -20 }
-              }]}
-              yAxis={[{
-                min: 0,
-                max: 100,
-                tickValues: [0, 20, 40, 60, 80, 100],
-                tickLabelStyle: {
-                  fontSize: 11,
-                  fill: '#666'
-                },
-                position: 'left',
-                axisLine: { 
-                  strokeWidth: 1,
-                  opacity: 0.2
-                },
-                tickSize: 0,
-                valueFormatter: (value) => `${value}`
-              }]}
-              margin={{ left: 35, right: 10, top: 15, bottom: 25 }}
-              sx={{
-                '.MuiLineElement-root': {
-                  strokeWidth: 2,
-                },
-                '.MuiAreaElement-root': {
-                  fillOpacity: 0.2,
-                },
-                '.MuiMarkElement-root': {
-                  scale: '0.6',
-                },
-                '.MuiChartsAxis-line': {
-                  stroke: '#666',
-                  opacity: 0.2
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   );
 }
 
