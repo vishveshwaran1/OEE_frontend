@@ -239,10 +239,10 @@ const ValueBox = ({ title, isLoading, color, productionData }) => (
 
   return (
     <div className="px-4">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-[220px]">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Pie Chart */}
         <div className="md:col-span-3 col-span-1">
-          <div className="bg-white p-4 h-[220px] flex flex-col justify-between border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#0BD4E5]">
+          <div className="bg-white p-4 min-h-[220px] flex flex-col justify-between border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:border-[#0BD4E5]">
             <div>
               <div className="flex items-center justify-between border-b border-cyan-100 pb-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -296,7 +296,7 @@ const ValueBox = ({ title, isLoading, color, productionData }) => (
 
         {/* Line Chart */}
         <div className="md:col-span-6 col-span-1">
-          <div className="bg-white p-4 h-[220px] flex flex-col border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+          <div className="bg-white p-4 min-h-[220px] flex flex-col border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-4 bg-[#143D60] rounded-full"></div>

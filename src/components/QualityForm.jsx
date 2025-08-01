@@ -355,11 +355,11 @@ const QualityForm = () => {
             </form>
           </div>
 
-          {/* Right Column - Plan Form and Corrective Action Form */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:flex-row">
+          {/* Right Column: Plan Form and Corrective Action Form */}
+          <div className="w-full flex flex-col gap-4 mt-0 lg:mt-0 lg:flex-col lg:w-1/2">
 
             {/*  Corrective Action Form */}
-            <div className="w-full lg:w-1/2">
+            <div className="w-full">
               <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4 lg:mb-0">
                 <h2 className="text-lg font-bold text-[#143D60] mb-4">Corrective Action Form</h2>
                 
@@ -408,7 +408,7 @@ const QualityForm = () => {
             </div>
 
             {/* Plan Form */}
-            <div className="w-full lg:w-1/2">
+            <div className="w-full">
               <form onSubmit={handlePlanSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4 lg:mb-0">
                 <h2 className="text-lg font-bold text-[#143D60] mb-4">Set Production Plan</h2>
                 

@@ -52,13 +52,13 @@ const Quality = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="p-4">
+      <div className="p-2 md:p-4">
         <FirstRowqual 
           statsData={statsData} 
           onPartSelect={setSelectedPart} 
         />
-        <div className="grid grid-cols-2 gap-6 mt-6">
-            <Paro 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <Paro 
             statsData={statsData} 
             selectedPart={selectedPart}
           />
