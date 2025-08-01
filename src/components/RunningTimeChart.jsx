@@ -92,9 +92,9 @@ function RunningTimeChart() {
 
   return (
     <div className="px-4">
-      <div className="flex flex-col md:flex-row gap-6">
+      <div className="flex flex-col gap-8 md:flex-row md:gap-6">
         {/* Running Time Chart */}
-        <div className="md:w-[70%] w-full bg-white p-4 h-[240px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+        <div className="md:w-[70%] w-full bg-white p-4 min-h-[260px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-auto mb-4 md:mb-0">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-[#143D60] text-base font-bold truncate">Running Time (Hourly)</h3>
             <div className="flex items-center gap-4">
@@ -195,7 +195,7 @@ function RunningTimeChart() {
         </div>
 
         {/* Plan vs Actual Chart */}
-        <div className="md:w-[30%] w-full bg-white p-4 h-[240px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+        <div className="md:w-[30%] w-full bg-white p-4 min-h-[260px] border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-auto">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-[#143D60] text-base font-bold truncate">Plan vs Actual</h3>
             <div className="flex items-center gap-4">

@@ -163,203 +163,204 @@ const QualityForm = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="lg:w-2/4">
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
-            <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-            <h2 className="text-lg font-bold text-[#143D60] mb-4">Data Entry Form</h2>
-            
-            {/* Date and Shift Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                <input
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
-                  required
-                />
+      <div className="container mx-auto px-2 py-6">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          {/* Left Column: Data Entry Form */}
+          <div className="w-full lg:w-1/2">
+            <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+              <h2 className="text-lg font-bold text-[#143D60] mb-4">Data Entry Form</h2>
+              
+              {/* Date and Shift Selection */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                  <input
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Shift</label>
+                  <select
+                    value={formData.shift}
+                    onChange={(e) => setFormData({ ...formData, shift: e.target.value })}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  >
+                    <option value="">Select Shift</option>
+                    <option value="shift-1">Shift 1</option>
+                    <option value="shift-2">Shift 2</option>
+                  </select>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Shift</label>
-                <select
-                  value={formData.shift}
-                  onChange={(e) => setFormData({ ...formData, shift: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
-                  required
+
+              {/* Rejections Section */}
+              <div className="mb-6">
+                <h3 className="text-md font-semibold text-[#5506D6] mb-2">Rejected Parts Details</h3>
+                <div className="space-y-2">
+                  {formData.rejections.map((rejection, index) => (
+                    <div key={index} className="bg-cyan-50 p-3 rounded-lg">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Part</label>
+                          <select
+                            value={rejection.partNumber}
+                            onChange={(e) => {
+                              const newRejections = [...formData.rejections];
+                              newRejections[index].partNumber = e.target.value;
+                              setFormData({ ...formData, rejections: newRejections });
+                            }}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                           
+                          >
+                            <option value="">Select Part</option>
+                            {parts.map(part => (
+                              <option key={part.number} value={part.number}>
+                                {part.name} ({part.number})
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Count</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={rejection.count}
+                            onChange={(e) => {
+                              const newRejections = [...formData.rejections];
+                              newRejections[index].count = e.target.value;
+                              setFormData({ ...formData, rejections: newRejections });
+                            }}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                            
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
+                          <select
+                            value={rejection.reason}
+                            onChange={(e) => {
+                              const newRejections = [...formData.rejections];
+                              newRejections[index].reason = e.target.value;
+                              setFormData({ ...formData, rejections: newRejections });
+                            }}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                           
+                          >
+                            <option value="">Select Reason</option>
+                            {rejectionReasons.map(reason => (
+                              <option key={reason} value={reason}>{reason}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      {formData.rejections.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeRejection(index)}
+                          className="text-red-600 text-sm hover:text-red-800"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={addRejection}
+                  className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-cyan-50 text-sm mt-4"
                 >
-                  <option value="">Select Shift</option>
-                  <option value="shift-1">Shift 1</option>
-                  <option value="shift-2">Shift 2</option>
-                </select>
+                  Add More Rejections
+                </button>
               </div>
-            </div>
 
-            {/* Rejections Section */}
-            <div className="mb-6">
-              <h3 className="text-md font-semibold text-[#5506D6] mb-2">Rejected Parts Details</h3>
-              <div className="space-y-2">
-                {formData.rejections.map((rejection, index) => (
-                  <div key={index} className="bg-cyan-50 p-3 rounded-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Part</label>
-                        <select
-                          value={rejection.partNumber}
-                          onChange={(e) => {
-                            const newRejections = [...formData.rejections];
-                            newRejections[index].partNumber = e.target.value;
-                            setFormData({ ...formData, rejections: newRejections });
-                          }}
-                          className="w-full p-2 border border-gray-300 rounded-md"
-                         
+              {/* Stop Times Section */}
+              <div className="mb-6">
+                <h3 className="text-md font-semibold text-[#5506D6] mb-2">Stop Times</h3>
+                <div className="space-y-2">
+                  {formData.stopTimes.map((stopTime, index) => (
+                    <div key={index} className="bg-cyan-50 p-3 rounded-lg">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Duration (minutes)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={stopTime.duration}
+                            onChange={(e) => {
+                              const newStopTimes = [...formData.stopTimes];
+                              newStopTimes[index].duration = e.target.value;
+                              setFormData({ ...formData, stopTimes: newStopTimes });
+                            }}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
+                          <select
+                            value={stopTime.reason}
+                            onChange={(e) => {
+                              const newStopTimes = [...formData.stopTimes];
+                              newStopTimes[index].reason = e.target.value;
+                              setFormData({ ...formData, stopTimes: newStopTimes });
+                            }}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                            required
+                          >
+                            <option value="">Select Reason</option>
+                            {stopTimeReasons.map(reason => (
+                              <option key={reason} value={reason}>{reason}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      {formData.stopTimes.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeStopTime(index)}
+                          className="text-red-600 text-sm hover:text-red-800"
                         >
-                          <option value="">Select Part</option>
-                          {parts.map(part => (
-                            <option key={part.number} value={part.number}>
-                              {part.name} ({part.number})
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Count</label>
-                        <input
-                          type="number"
-                          min="0"
-                          value={rejection.count}
-                          onChange={(e) => {
-                            const newRejections = [...formData.rejections];
-                            newRejections[index].count = e.target.value;
-                            setFormData({ ...formData, rejections: newRejections });
-                          }}
-                          className="w-full p-2 border border-gray-300 rounded-md"
-                          
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
-                        <select
-                          value={rejection.reason}
-                          onChange={(e) => {
-                            const newRejections = [...formData.rejections];
-                            newRejections[index].reason = e.target.value;
-                            setFormData({ ...formData, rejections: newRejections });
-                          }}
-                          className="w-full p-2 border border-gray-300 rounded-md"
-                         
-                        >
-                          <option value="">Select Reason</option>
-                          {rejectionReasons.map(reason => (
-                            <option key={reason} value={reason}>{reason}</option>
-                          ))}
-                        </select>
-                      </div>
+                          Remove
+                        </button>
+                      )}
                     </div>
-                    {formData.rejections.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeRejection(index)}
-                        className="text-red-600 text-sm hover:text-red-800"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={addStopTime}
+                  className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-orange-50 text-sm mt-4"
+                >
+                  Add More Stop Times
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={addRejection}
-                className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-cyan-50 text-sm mt-4"
-              >
-                Add More Rejections
-              </button>
-            </div>
 
-            {/* Stop Times Section */}
-            <div className="mb-6">
-              <h3 className="text-md font-semibold text-[#5506D6] mb-2">Stop Times</h3>
-              <div className="space-y-2">
-                {formData.stopTimes.map((stopTime, index) => (
-                  <div key={index} className="bg-cyan-50 p-3 rounded-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Duration (minutes)</label>
-                        <input
-                          type="number"
-                          min="0"
-                          value={stopTime.duration}
-                          onChange={(e) => {
-                            const newStopTimes = [...formData.stopTimes];
-                            newStopTimes[index].duration = e.target.value;
-                            setFormData({ ...formData, stopTimes: newStopTimes });
-                          }}
-                          className="w-full p-2 border border-gray-300 rounded-md"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
-                        <select
-                          value={stopTime.reason}
-                          onChange={(e) => {
-                            const newStopTimes = [...formData.stopTimes];
-                            newStopTimes[index].reason = e.target.value;
-                            setFormData({ ...formData, stopTimes: newStopTimes });
-                          }}
-                          className="w-full p-2 border border-gray-300 rounded-md"
-                          required
-                        >
-                          <option value="">Select Reason</option>
-                          {stopTimeReasons.map(reason => (
-                            <option key={reason} value={reason}>{reason}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    {formData.stopTimes.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeStopTime(index)}
-                        className="text-red-600 text-sm hover:text-red-800"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
-                ))}
+              {/* Submit Button */}
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className="w-full bg-[#143D60] text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors text-sm"
+                >
+                  Submit
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={addStopTime}
-                className="text-[#143D60] border border-[#143D60] px-3 py-1 rounded-md hover:bg-orange-50 text-sm mt-4"
-              >
-                Add More Stop Times
-              </button>
             </div>
-
-            {/* Submit Button */}
-            <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full bg-[#143D60] text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors text-sm"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-          </form>
+            </form>
           </div>
 
           {/* Right Column - Plan Form and Corrective Action Form */}
-          <div className="lg:w-2/4 flex lg:flex-row gap-4">
+          <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:flex-row">
 
             {/*  Corrective Action Form */}
-            <div className="lg:w-2/4">
-              <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+            <div className="w-full lg:w-1/2">
+              <form onSubmit={handleCorrectionSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4 lg:mb-0">
                 <h2 className="text-lg font-bold text-[#143D60] mb-4">Corrective Action Form</h2>
                 
                 <div className="space-y-4">
@@ -407,8 +408,8 @@ const QualityForm = () => {
             </div>
 
             {/* Plan Form */}
-            <div className="lg:w-2/4">
-              <form onSubmit={handlePlanSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4">
+            <div className="w-full lg:w-1/2">
+              <form onSubmit={handlePlanSubmit} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 mb-4 lg:mb-0">
                 <h2 className="text-lg font-bold text-[#143D60] mb-4">Set Production Plan</h2>
                 
                 <div className="space-y-4">
