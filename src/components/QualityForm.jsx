@@ -51,7 +51,7 @@ const QualityForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://oee-backend-1.onrender.com/api/quality-data', {
+      const response = await fetch('http://localhost:3000/api/quality-data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const QualityForm = () => {
   const handleCorrectionSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://oee-backend-1.onrender.com/api/correction', {
+      const response = await fetch('http://localhost:3000/api/correction', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const QualityForm = () => {
   const handlePlanSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://oee-backend-1.onrender.com/api/set-plan', {
+      const response = await fetch('http://localhost:3000/api/set-plan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

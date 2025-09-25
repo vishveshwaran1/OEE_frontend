@@ -14,8 +14,8 @@ import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="h-screen bg-white">
+        <Router>
+          <div className="h-screen bg-white">
           <Toaster 
             position="top-right"
             toastOptions={{
@@ -27,9 +27,7 @@ function App() {
             }}
           />
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            
-            <Route path="/" element={
+            <Route path="/dashboard" element={
               <div>
                 <Header />
                 <div className="min-h-[calc(100vh-64px)] p-2">
@@ -39,7 +37,9 @@ function App() {
                   </div>
                 </div>
               </div>
-            } />
+            }  />
+            
+            <Route path="/" element={<LoginPage />}/>
             
             {/* Protected Routes */}
             <Route path="/reports" element={

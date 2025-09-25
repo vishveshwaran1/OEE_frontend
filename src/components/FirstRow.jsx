@@ -137,7 +137,7 @@ const FirstRow = () => {
   // Add fetch function
   const fetchOEEData = async () => {
     try {
-      const response = await fetch('https://oee-backend-1.onrender.com/api/oee');
+      const response = await fetch('https://localhost:3000/api/oee');
       const result = await response.json();
       if (result.success) {
         setOeeData({
@@ -158,7 +158,7 @@ const FirstRow = () => {
    // Add useEffect for data fetching
    React.useEffect(() => {
     fetchOEEData();
-    const intervalId = setInterval(fetchOEEData, 20000); // Refresh every 20 seconds
+     const intervalId = setInterval(fetchOEEData, 20000); // Refresh every 20 seconds
     return () => clearInterval(intervalId);
   }, []);
 
@@ -260,11 +260,11 @@ const FirstRow = () => {
     }`;
 
     const handleClick = () => {
-      if (title === 'AVAILABILITY') {
-        navigate('/availability');
-      } else if (title === 'QUALITY') {
-        navigate('/quality');
-      }
+        if (title === 'AVAILABILITY') {
+          navigate('/availability');
+        } else if (title === 'QUALITY') {
+          navigate('/quality');
+        }
     };
 
     return (
@@ -284,7 +284,7 @@ const FirstRow = () => {
         </div>
         {isLoading ? (
           <div className="flex items-center justify-center h-20">
-            <span className="text-sm text-gray-500">Loading...</span>
+              <span className="text-sm text-gray-500">Loading...</span>
           </div>
         ) : (
           <>
