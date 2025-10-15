@@ -15,3 +15,14 @@
   .k-arc-gauge .k-pointer {
     transform-origin: 50% 90%;
   }
+
+/* Prevent horizontal scrollbars globally while allowing content to wrap */
+html, body, #root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure responsive images and charts don't overflow */
+img, svg, canvas {
+  max-width: 100%;
+}

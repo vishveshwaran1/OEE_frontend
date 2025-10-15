@@ -44,7 +44,7 @@ const ParatoSection = ({ runtimeData }) => {
             <span className="text-[#143D60] text-sm font-medium">STOPPAGE ANALYSIS</span>
           </div>
           
-          <div className="p-4 h-[300px]">
+          <div className="p-4 h-[300px] overflow-x-hidden">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={chartData}>
                 <XAxis 
@@ -106,12 +106,12 @@ const ParatoSection = ({ runtimeData }) => {
           
           <div className="p-4">
             <div className="overflow-hidden rounded-lg border border-gray-200">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-gray-200 table-fixed">
                 <thead>
                   <tr className="bg-gradient-to-r from-[#143D60] to-[#6C2DD2] text-white">
-                    <th className="px-4 py-3 text-center text-xs font-medium">STOPPAGE REASON</th>
-                    <th className="px-4 py-3 text-center text-xs font-medium">DURATION (min)</th>
-                    <th className="px-4 py-3 text-center text-xs font-medium">CUMULATIVE %</th>
+                    <th className="px-4 py-3 text-center text-xs font-medium w-1/2">STOPPAGE REASON</th>
+                    <th className="px-4 py-3 text-center text-xs font-medium w-1/4">DURATION (min)</th>
+                    <th className="px-4 py-3 text-center text-xs font-medium w-1/4">CUMULATIVE %</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -120,7 +120,7 @@ const ParatoSection = ({ runtimeData }) => {
                       key={index}
                       className="hover:bg-orange-50 transition-colors duration-150 border-b border-gray-200"
                     >
-                      <td className="px-4 py-3 text-sm text-gray-900 capitalize border-r border-gray-200">{item.name}</td>
+                      <td className="px-4 py-3 text-sm text-gray-900 capitalize border-r border-gray-200 break-words">{item.name}</td>
                       <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 text-center">{item.complaints}</td>
                       <td className="px-4 py-3 text-sm text-gray-900 text-center">{item.pareto}%</td>
                     </tr>

@@ -2,7 +2,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './components/LoginPage';
-import Header from './components/Header';
 import FirstRow from './components/FirstRow';
 import RunningTimeChart from './components/RunningTimeChart';
 import Availability from './components/Availability';
@@ -10,12 +9,13 @@ import Quality from './components/Quality';
 import QualityForm from './components/QualityForm';
 import ReportDownloadPage from './components/Reports'; // Fixed import name and path
 import { Toaster } from 'react-hot-toast';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="h-screen bg-white">
+        <div className="min-h-screen bg-[#F7F9FC]">
           <Toaster 
             position="top-right"
             toastOptions={{
@@ -27,62 +27,45 @@ function App() {
             }}
           />
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage />} />
             
-            <Route path="/" element={
-              <div>
-                <Header />
-                <div className="min-h-[calc(100vh-64px)] p-2">
-                  <FirstRow />
-                  <div className="mt-2">
-                    <RunningTimeChart />
-                  </div>
+            <Route path="/dashboard" element={
+              <Layout>
+                <FirstRow />
+                <div className="mt-2">
+                  <RunningTimeChart />
                 </div>
-              </div>
+              </Layout>
             } />
             
             {/* Protected Routes */}
             <Route path="/reports" element={
-              
-                <div>
-                  <Header />
-                  <div className="min-h-[calc(100vh-64px)] p-2">
-                    <ReportDownloadPage />
-                  </div>
-                </div>
-             
+              <Layout>
+                <ReportDownloadPage />
+              </Layout>
             } />
             
             <Route path="/availability" element={
               <ProtectedRoute>
-                <div>
-                  <Header />
-                  <div className="min-h-[calc(100vh-64px)] p-2">
-                    <Availability />
-                  </div>
-                </div>
+                <Layout>
+                  <Availability />
+                </Layout>
               </ProtectedRoute>
             } />
             
             <Route path="/quality" element={
               <ProtectedRoute>
-                <div>
-                  <Header />
-                  <div className="min-h-[calc(100vh-64px)] p-2">
-                    <Quality />
-                  </div>
-                </div>
+                <Layout>
+                  <Quality />
+                </Layout>
               </ProtectedRoute>
             } />
             
             <Route path="/form" element={
               <ProtectedRoute>
-                <div>
-                  <Header />
-                  <div className="min-h-[calc(100vh-64px)] p-2">
-                    <QualityForm />
-                  </div>
-                </div>
+                <Layout>
+                  <QualityForm />
+                </Layout>
               </ProtectedRoute>
             } />
           </Routes>

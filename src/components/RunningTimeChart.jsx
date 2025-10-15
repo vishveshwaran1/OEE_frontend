@@ -9,17 +9,32 @@ function RunningTimeChart() {
   const threshold = 106;
 
   const formatPlanActualData = (data) => {
-    return data.map(item => {
-        const dateObj = new Date(item.date);
-        const day = dateObj.getDate();
-        const shiftFormatted = item.shift === 'shift-1' ? 'S1' : item.shift === 'shift-2' ? 'S2' : item.shift;
-        return {
-            name: `|${day}-${shiftFormatted}|`,
-            plan: item.plan,
-            actual: item.actual,
-            month: dateObj.toLocaleString('default', { month: 'short' }) // new field
-        };
+    // Merge entries by day-shift so both plan and actual live in one datum
+    const order = { 'shift-1': 0, 'shift-2': 1 };
+    const byKey = new Map();
+    data.forEach((item) => {
+      const dateObj = new Date(item.date);
+      const day = dateObj.getDate();
+      const shiftFormatted = item.shift === 'shift-1' ? 'S1' : item.shift === 'shift-2' ? 'S2' : item.shift;
+      const key = `${dateObj.toISOString().slice(0,10)}|${item.shift}`;
+      const displayName = `|${day}-${shiftFormatted}|`;
+      const month = dateObj.toLocaleString('default', { month: 'short' });
+      const existing = byKey.get(key) || { name: displayName, month, sortDate: dateObj, sortShift: order[item.shift] ?? 0 };
+      const next = {
+        ...existing,
+        plan: Number(item.plan ?? existing.plan ?? 0),
+        actual: Number(item.actual ?? existing.actual ?? 0)
+      };
+      byKey.set(key, next);
     });
+    // Sort chronologically then by shift
+    const merged = Array.from(byKey.values()).sort((a, b) => {
+      const d = a.sortDate - b.sortDate;
+      if (d !== 0) return d;
+      return (a.sortShift ?? 0) - (b.sortShift ?? 0);
+    });
+    // Strip helper fields
+    return merged.map(({ sortDate, sortShift, ...rest }) => rest);
   };
 
   // Function to process hourly data
@@ -214,14 +229,19 @@ function RunningTimeChart() {
               <ComposedChart
                 data={planActualData}
                 margin={{ top: 10, right: 10, left: 20, bottom: 25 }}
+                barCategoryGap="30%"
               >
                 <XAxis
                   dataKey="name"
+                  type="category"
+                  allowDuplicatedCategory={false}
                   tickSize={0}
                   height={30}
                   axisLine={{ stroke: '#143D60' }}
                   tick={{ fontSize: 12, fill: '#143D60', fontWeight: 500 }}
                   tickLine={false}
+                  interval={0}
+                  minTickGap={0}
                   label={{ value: 'Day-Shift', position: 'insideBottom', offset: -5, fill: '#143D60', fontSize: 13 }}
                 />
                 <YAxis
@@ -230,6 +250,7 @@ function RunningTimeChart() {
                   axisLine={{ stroke: '#143D60' }}
                   tick={{ fontSize: 12, fill: '#143D60', fontWeight: 500 }}
                   tickLine={false}
+                  domain={[0, 'dataMax + 10']}
                   label={{ value: 'Count', angle: -90, position: 'insideLeft', fill: '#143D60', fontSize: 13 }}
                 />
                 <Tooltip

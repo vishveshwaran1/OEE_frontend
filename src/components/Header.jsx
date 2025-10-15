@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoMainifa from '../assets/logomainfia.webp';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,6 +7,8 @@ function Header() {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [systemOnline, setSystemOnline] = useState(null); // null = unknown, true = online, false = offline
+  const [lastCheckedAt, setLastCheckedAt] = useState(null);
 
   const handleLogout = () => {
     logout();
@@ -33,6 +35,38 @@ function Header() {
   };
 
   const currentDate = new Date().toLocaleDateString('en-GB');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkHealth = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      try {
+        const response = await fetch('https://oee-backend-1.onrender.com/api/production', {
+          method: 'GET',
+          signal: controller.signal
+        });
+        if (!isMounted) return;
+        setSystemOnline(response.ok);
+      } catch (e) {
+        if (!isMounted) return;
+        setSystemOnline(false);
+      } finally {
+        clearTimeout(timeoutId);
+        if (isMounted) setLastCheckedAt(new Date());
+      }
+    };
+
+    // initial check and interval
+    checkHealth();
+    const intervalId = setInterval(checkHealth, 15000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-md">
@@ -71,6 +105,11 @@ function Header() {
 
         {/* Right Section */}
         <div className={`flex-col md:flex-row items-center gap-2 md:gap-4 absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none border-b md:border-none transition-all duration-300 ${menuOpen ? 'flex' : 'hidden'} md:flex`}>
+          {/* Live system status */}
+          <div className={`flex items-center gap-2 text-xs md:text-sm px-3 py-2 rounded-xl border ${systemOnline === false ? 'bg-red-50 border-red-200 text-red-700' : systemOnline === true ? 'bg-green-50 border-green-200 text-green-700' : 'bg-gray-50 border-gray-200 text-gray-700'}`} title={lastCheckedAt ? `Last checked: ${lastCheckedAt.toLocaleTimeString()}` : 'Checking status...'}>
+            <span className={`inline-block w-2.5 h-2.5 rounded-full ${systemOnline === false ? 'bg-red-500' : systemOnline === true ? 'bg-green-500' : 'bg-gray-400'} animate-[pulse_1.5s_ease-in-out_infinite]`}></span>
+            <span className="font-medium">{systemOnline === false ? 'System Offline' : systemOnline === true ? 'System Online' : 'Checking...'}</span>
+          </div>
           <button
             onClick={() => { setMenuOpen(false); navigate('/form'); }}
             className="bg-[#6C2DD2] hover:bg-[#974ED1] text-white text-sm px-4 py-2 rounded-xl shadow font-semibold w-full md:w-auto"
