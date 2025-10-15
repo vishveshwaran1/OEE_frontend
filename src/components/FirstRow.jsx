@@ -279,7 +279,6 @@ const FirstRow = () => {
           </div>
           <div className="flex items-center gap-1">
             <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-yellow-500' : 'bg-green-500'} animate-pulse`}></div>
-            <span className="text-[9px] text-gray-500">Live</span>
           </div>
         </div>
         {isLoading ? (
@@ -342,7 +341,6 @@ const FirstRow = () => {
               <span className="text-[#143D60] text-xs font-semibold">OEE</span>
               <div className="flex items-center gap-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="text-[9px] text-gray-500">Live</span>
               </div>
             </div>
             <div className="flex-1 flex items-center justify-center">
