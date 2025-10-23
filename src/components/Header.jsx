@@ -44,7 +44,11 @@ function Header() {
       const timeoutId = setTimeout(() => controller.abort(), 6000);
       try {
         const response = await fetch('https://oee-backend-1.onrender.com/api/production', {
-          method: 'GET',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ partNumber: 9253020232}),
           signal: controller.signal
         });
         if (!isMounted) return;
